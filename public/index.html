@@ -23,7 +23,7 @@
             margin: 6px auto 0px auto;
             width: 100%;
             border-radius: 12px 12px 0px 0px;
-            padding: 12px;
+            padding: 6px 12px 12px 12px;
             font-size: x-small;
         }
         thead {
@@ -46,7 +46,7 @@
             min-width: 240px;
             margin: 12px auto;
             border-radius: 12px 12px 12px 12px;
-            padding: 3px 6px 12px 6px;
+            padding: 3px 9px 12px 9px;
         }
         legend{
             font-weight: bold;
@@ -158,12 +158,19 @@
                 console.log(zonaHoraria);
                 console.log(data.hourly.time[12]);
 
-                console.log("Radiation: " + data.hourly.shortwave_radiation[12] + " W/m2");
-                console.log("Wind: " + data.hourly.wind_speed_10m[12] + " m/s");
-
                 console.log(tiempo);
                 console.log(radiacionCorta);
                 console.log(viento);
+
+                const media = mean => {
+                    if (mean.length < 1){
+                        return;
+                    }
+                    return mean.reduce((prev, current) => prev + current) / mean.length;
+                };
+
+                let mediaViento = media(viento);
+                let maxViento = Math.max.apply(null,viento);
 
                 let totalW = 0;
                 for (let i = 0; i < radEfectiva.length; i++){
@@ -177,8 +184,12 @@
                 });
 
                 let mViento = mediaWind/viento.length;
+
+                console.log("Radiation: " + data.hourly.shortwave_radiation[12] + " W/m2");
+                console.log("Wind: " + data.hourly.wind_speed_10m[12] + " m/s");
                 
                 console.log("Wind Media: " + mViento + " m/s");
+                console.log(maxViento);
 
                 document.getElementById("boton").innerHTML=data.daily.time[0];
                 document.getElementById("zonaHoraria").innerHTML=zonaHoraria;
@@ -188,7 +199,8 @@
                 document.getElementById("temperatura").innerHTML=temperatura;
                 document.getElementById("humedad").innerHTML=humedad;
                 document.getElementById("radiacion").innerHTML=parseInt(totalW);
-                document.getElementById("viento").innerHTML=data.hourly.wind_speed_10m[12];
+                document.getElementById("maxViento").innerHTML= maxViento;
+                document.getElementById("mediaViento").innerHTML= mediaViento;
 
                 
                 const ctx = document.getElementById('solRadar');
@@ -293,8 +305,13 @@
                 <td>Wh/m2</td>
             </tr>
             <tr>
-                <td>Wind Velocity</td>
-                <td id="viento"></td>
+                <td>Wind Velocity (max)</td>
+                <td id="maxViento"></td>
+                <td>m/s</td>
+            </tr>
+            <tr>
+                <td>Wind Velocity (avg)</td>
+                <td id="mediaViento"></td>
                 <td>m/s</td>
             </tr>
         </tbody>
@@ -302,6 +319,7 @@
     <!--<img src="home.jpg" alt="Loading ...">-->
     <canvas id="solRadar"></canvas>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
+    <h5>Powered by Open-Meteo</h5>
     </fieldset>
     
 </body>
