@@ -1,0 +1,14 @@
+[debug] [2024-07-25T17:19:47.916Z] ----------------------------------------------------------------------
+[debug] [2024-07-25T17:19:47.919Z] Command:       /usr/bin/node /usr/bin/firebase deploy --only hosting:pvenergy --project echo-group
+[debug] [2024-07-25T17:19:47.919Z] CLI Version:   12.6.0
+[debug] [2024-07-25T17:19:47.920Z] Platform:      linux
+[debug] [2024-07-25T17:19:47.920Z] Node Version:  v18.17.1
+[debug] [2024-07-25T17:19:47.921Z] Time:          Thu Jul 25 2024 12:19:47 GMT-0500 (hora estándar de Colombia)
+[debug] [2024-07-25T17:19:47.921Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-25T17:19:48.029Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-25T17:19:48.030Z] > authorizing via signed-in user (appjavadev2019@gmail.com)
+[debug] [2024-07-25T17:19:48.030Z] [iam] checking project echo-group for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-25T17:19:48.032Z] > refreshing access token with scopes: []
+[debug] [2024-07-25T17:19:48.034Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-07-25T17:19:48.034Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]

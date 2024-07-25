@@ -20,28 +20,32 @@
         }
         table{
             background-color: rgb(230, 169, 3);
-            margin: 0 auto;
+            margin: 6px auto 0px auto;
             width: 100%;
             border-radius: 12px 12px 0px 0px;
             padding: 12px;
             font-size: 9px;
         }
-        thead{
-            background-color: gray;
+        thead {
+            background-color: rgb(230, 169, 3);
             border-radius: 12px 12px 0px 0px;
-            
+            color: white;
+            font-size: small;
         }
         tbody{
             background-color: white;
             color: black;
+        }
+        td{
+            padding: 3px;
         }
         
         fieldset{
             width: 90%;
             min-width: 240px;
             margin: 12px auto;
-            border-radius: 12px 12px 0px 0px;
-            padding: 12px 6px 12px 6px;
+            border-radius: 12px 12px 12px 12px;
+            padding: 3px 6px 12px 6px;
         }
         legend{
             font-weight: bold;
@@ -49,11 +53,15 @@
         button{
             width: 100%;
             font-weight: bold;
+            font-size: 15px;
             height: 45px;
-            border-radius: 12px 12px 12px 12px;
+            border-radius: 0px 0px 12px 12px;
             margin-bottom: 12px;
-            margin-top: 6px;
+            margin-top: 0px;
             text-transform: uppercase;
+            background-color: rgb(230, 169, 3);
+            color: white;
+            cursor: pointer;
         }
         img{
             border-radius: 0px 0px 12px 12px;
@@ -67,7 +75,9 @@
             margin: 3px;
         }
         #radiacion{
-            background-color: springgreen;
+            background-color: rgb(230, 169, 3);
+            color: white;
+            font-weight: bold;
         }
         #solRadar{
             max-width: 100%;
@@ -187,17 +197,7 @@
                         datasets: [
                             {
                             axis: 'x',
-                            label: 'Radiation',
-                            data: Object.values(radiacionCorta),
-                            borderWidth: 1,
-                            fill: false,
-                            borderColor: 'rgb(23, 69, 3)',
-                            backgroundColor: 'rgb(230, 169, 3)',
-                            tension: 0.3,
-                            },
-                            {
-                            axis: 'x',
-                            label: 'Efectiva',
+                            label: 'Wh/m2',
                             data: Object.values(radEfectiva),
                             borderWidth: 1,
                             fill: true,
@@ -215,20 +215,12 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Custom Chart Title',
+                                text: 'Hourly Energy Generation',
                                 padding: {
-                                    top: 0,
+                                    top: 6,
                                     bottom: 0
                                 }
                             },
-                            subtitle: {
-                                display: true,
-                                text: 'Custom Chart Subtitle',
-                                padding: {
-                                    top: 0,
-                                    bottom: 0,
-                                }
-                            }
                         }
                     }
                 });
@@ -254,7 +246,7 @@
     <table>
         <thead>
             <tr>
-                <th>Item</th>
+                <th>Parameter</th>
                 <th>Value</th>
                 <th>Und</th>
             </tr>
@@ -293,7 +285,7 @@
             <tr>
                 <td>Daily Energy</td>
                 <td id="radiacion"></td>
-                <td>Whd/m2</td>
+                <td>Wh/m2</td>
             </tr>
             <tr>
                 <td>Wind Velocity</td>
