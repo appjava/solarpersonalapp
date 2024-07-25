@@ -6,11 +6,16 @@
     <title>Solar Personal APP </title>
     
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
         body{
             text-align: center;
-            width: 90%;
+            width: 100%;
             background-color: red;
             color: white;
+            font-size: 12px;
 
         }
         table{
@@ -19,6 +24,7 @@
             width: 100%;
             border-radius: 12px 12px 0px 0px;
             padding: 12px;
+            font-size: 9px;
         }
         thead{
             background-color: gray;
@@ -31,11 +37,11 @@
         }
         
         fieldset{
-            max-width: 48%;
-            min-width: 340px;
-            margin: 30px auto;
+            width: 90%;
+            min-width: 240px;
+            margin: 12px auto;
             border-radius: 12px 12px 0px 0px;
-            padding: 15px 30px 24px 30px;
+            padding: 12px 6px 12px 6px;
         }
         legend{
             font-weight: bold;
@@ -55,18 +61,20 @@
         }
         input{
             text-align: center;
-            width: 20%;
+            width: 50%;
             background-color: white;
             border-radius: 6px;
             margin: 3px;
         }
-        
+        #radiacion{
+            background-color: springgreen;
+        }
         #solRadar{
             max-width: 100%;
             height: 240px;
             border: 1px solid white;
             background-color: white;
-
+            font-size: 12px;
         }
 
     </style>
@@ -106,10 +114,17 @@
             fetch(urlAPI)
             .then(response => response.json())
             .then(data => {
-                let temperatura = data.current.temperature_2m;
-                let humedad = data.relative_humidity_2m;
+
                 let zonaHoraria = data.timezone;
                 let elevacion = data.elevation;
+                let latitud = data.latitude;
+                let longitud = data.longitude;
+
+                //Current
+                let temperatura = data.current.temperature_2m;
+                let humedad = data.current.relative_humidity_2m;
+            
+                //Hourly
                 let tiempo = data.hourly.time;
                 let radiacionCorta = data.hourly.shortwave_radiation;
                 let viento = data.hourly.wind_speed_10m;
@@ -151,8 +166,12 @@
                 console.log("Wind Media: " + mViento + " m/s");
 
                 document.getElementById("boton").innerHTML=data.daily.time[0];
-                document.getElementById("latitud").innerHTML=zonaHoraria;
-                document.getElementById("longitud").innerHTML=elevacion;
+                document.getElementById("zonaHoraria").innerHTML=zonaHoraria;
+                document.getElementById("latitud").innerHTML=latitud;
+                document.getElementById("longitud").innerHTML=longitud;
+                document.getElementById("elevacion").innerHTML=elevacion;
+                document.getElementById("temperatura").innerHTML=temperatura;
+                document.getElementById("humedad").innerHTML=humedad;
                 document.getElementById("radiacion").innerHTML=parseInt(totalW);
                 document.getElementById("viento").innerHTML=data.hourly.wind_speed_10m[12];
 
@@ -229,9 +248,9 @@
 <body>
     <fieldset>
         <legend id="dia">EchoWeather</legend>
-    <label>Latitude:</label><input id="lat" type="number" placeholder="3.375">
-    <label>Longitude:</label><input id="lon" type="number"placeholder="-76.75">
-    <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
+    <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
+    <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75"></p>
+    
     <table>
         <thead>
             <tr>
@@ -243,31 +262,49 @@
         <tbody>
             <tr>
                 <td>TimeZone</td>
-                <td id="latitud"></td>
+                <td id="zonaHoraria"></td>
                 <td>-</td>
             </tr>
             <tr>
-                <td>Elevation</td>
+                <td>Latitude</td>
+                <td id="latitud"></td>
+                <td>°</td>
+            </tr>
+            <tr>
+                <td>Longitude</td>
                 <td id="longitud"></td>
+                <td>°</td>
+            </tr>
+            <tr>
+                <td>Elevation</td>
+                <td id="elevacion"></td>
                 <td>msnm</td>
             </tr>
             <tr>
-                <td>Energy</td>
+                <td>Temperatura</td>
+                <td id="temperatura"></td>
+                <td>°C</td>
+            </tr>
+            <tr>
+                <td>Humedad</td>
+                <td id="humedad"></td>
+                <td>%</td>
+            </tr>
+            <tr>
+                <td>Daily Energy</td>
                 <td id="radiacion"></td>
                 <td>Whd/m2</td>
             </tr>
             <tr>
-                <td>Wind Max</td>
+                <td>Wind Velocity</td>
                 <td id="viento"></td>
                 <td>m/s</td>
             </tr>
         </tbody>
     </table>
-    
     <!--<img src="home.jpg" alt="Loading ...">-->
-    
     <canvas id="solRadar"></canvas>
-    
+    <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     </fieldset>
     
 </body>
