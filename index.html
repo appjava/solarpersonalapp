@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Personal APP </title>
+    
+    <style>
+        body{
+            text-align: center;
+            width: 90%;
+            background-color: red;
+            color: white;
+
+        }
+        table{
+            background-color: rgb(230, 169, 3);
+            margin: 0 auto;
+            width: 100%;
+            border-radius: 12px 12px 0px 0px;
+            padding: 12px;
+        }
+        thead{
+            background-color: gray;
+            border-radius: 12px 12px 0px 0px;
+            
+        }
+        tbody{
+            background-color: white;
+            color: black;
+        }
+        
+        fieldset{
+            max-width: 48%;
+            min-width: 340px;
+            margin: 30px auto;
+            border-radius: 12px 12px 0px 0px;
+            padding: 15px 30px 24px 30px;
+        }
+        legend{
+            font-weight: bold;
+        }
+        button{
+            width: 100%;
+            font-weight: bold;
+            height: 45px;
+            border-radius: 12px 12px 12px 12px;
+            margin-bottom: 12px;
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+        img{
+            border-radius: 0px 0px 12px 12px;
+            width: 100%;
+        }
+        input{
+            text-align: center;
+            width: 20%;
+            background-color: white;
+            border-radius: 6px;
+            margin: 3px;
+        }
+        
+        #solRadar{
+            max-width: 100%;
+            height: 240px;
+            border: 1px solid white;
+            background-color: white;
+
+        }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function(){
+            readDay();
+            });
+
+        function readDay(){
+            let lat = document.getElementById("lat").value;
+            let lon = document.getElementById("lon").value;
+
+            if (!lat || !lon){
+                    console.log("Por Defecto: ");
+                    lat = 3.559809;
+                    lon = -76.575405;
+                    console.log(lat);
+                    console.log(lon);
+                }
+                else {
+                    console.log("Input: ");
+                    console.log(lat);
+                    console.log(lon);
+                }
+            const urlINI = 'https://api.open-meteo.com/v1/forecast?';
+            const urlA = 'latitude='+lat;
+            const urlB = 'longitude='+lon;
+            const urlC = 'current=temperature_2m,relative_humidity_2m';
+            const urlD = 'hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,shortwave_radiation,direct_radiation,diffuse_radiation';
+            const urlE = 'daily=temperature_2m_max,temperature_2m_min';
+            const urlEND = 'wind_speed_unit=ms&timezone=auto&forecast_days=1&models=best_match';
+            const urlAPI = urlINI +'&'+ urlA +'&'+ urlB +'&'+ urlC +'&'+ urlD +'&'+ urlE +'&'+ urlEND;
+            console.log(urlAPI);
+
+            fetch(urlAPI)
+            .then(response => response.json())
+            .then(data => {
+                let temperatura = data.current.temperature_2m;
+                let humedad = data.relative_humidity_2m;
+                let zonaHoraria = data.timezone;
+                let elevacion = data.elevation;
+                let tiempo = data.hourly.time;
+                let radiacionCorta = data.hourly.shortwave_radiation;
+                let viento = data.hourly.wind_speed_10m;
+
+                let eficiencia = 0.15;
+
+                const radEfectiva = radiacionCorta.map( number => eficiencia * number);
+               
+                console.log("Radiacion Efectiva: ");
+                console.log(radEfectiva);
+
+                console.log(data);
+
+                console.log(data.latitude);
+                console.log(data.longitude);
+                console.log(zonaHoraria);
+                console.log(data.hourly.time[12]);
+
+                console.log("Radiation: " + data.hourly.shortwave_radiation[12] + " W/m2");
+                console.log("Wind: " + data.hourly.wind_speed_10m[12] + " m/s");
+
+                console.log(tiempo);
+                console.log(radiacionCorta);
+                console.log(viento);
+
+                let totalW = 0;
+                for (let i = 0; i < radEfectiva.length; i++){
+                    totalW += radEfectiva[i];
+                }
+                console.log("Total Energy: " + parseInt(totalW) + " Wh/m2");
+
+                let mediaWind = 0;
+                viento.forEach( num => {
+                    mediaWind += num;
+                });
+
+                let mViento = mediaWind/viento.length;
+                
+                console.log("Wind Media: " + mViento + " m/s");
+
+                document.getElementById("boton").innerHTML=data.daily.time[0];
+                document.getElementById("latitud").innerHTML=zonaHoraria;
+                document.getElementById("longitud").innerHTML=elevacion;
+                document.getElementById("radiacion").innerHTML=parseInt(totalW);
+                document.getElementById("viento").innerHTML=data.hourly.wind_speed_10m[12];
+
+                
+                const ctx = document.getElementById('solRadar');
+                const ctx2 = document.getElementById('solGen');
+                
+
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Object.keys(radiacionCorta),
+                        datasets: [
+                            {
+                            axis: 'x',
+                            label: 'Radiation',
+                            data: Object.values(radiacionCorta),
+                            borderWidth: 1,
+                            fill: false,
+                            borderColor: 'rgb(23, 69, 3)',
+                            backgroundColor: 'rgb(230, 169, 3)',
+                            tension: 0.3,
+                            },
+                            {
+                            axis: 'x',
+                            label: 'Efectiva',
+                            data: Object.values(radEfectiva),
+                            borderWidth: 1,
+                            fill: true,
+                            borderColor: 'rgb(23, 69, 3)',
+                            backgroundColor: 'rgb(230, 169, 3)',
+                            tension: 0.3,
+                            },
+
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {beginAtZero: true}
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Custom Chart Title',
+                                padding: {
+                                    top: 0,
+                                    bottom: 0
+                                }
+                            },
+                            subtitle: {
+                                display: true,
+                                text: 'Custom Chart Subtitle',
+                                padding: {
+                                    top: 0,
+                                    bottom: 0,
+                                }
+                            }
+                        }
+                    }
+                });
+                
+            });
+
+        }
+
+        function clearDay(){
+            myChart.clear();
+            myChart.destroy();
+            readDay();
+        }
+    </script>
+
+</head>
+<body>
+    <fieldset>
+        <legend id="dia">EchoWeather</legend>
+    <label>Latitude:</label><input id="lat" type="number" placeholder="3.375">
+    <label>Longitude:</label><input id="lon" type="number"placeholder="-76.75">
+    <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Value</th>
+                <th>Und</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TimeZone</td>
+                <td id="latitud"></td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Elevation</td>
+                <td id="longitud"></td>
+                <td>msnm</td>
+            </tr>
+            <tr>
+                <td>Energy</td>
+                <td id="radiacion"></td>
+                <td>Whd/m2</td>
+            </tr>
+            <tr>
+                <td>Wind Max</td>
+                <td id="viento"></td>
+                <td>m/s</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!--<img src="home.jpg" alt="Loading ...">-->
+    
+    <canvas id="solRadar"></canvas>
+    
+    </fieldset>
+    
+</body>
+</html>
