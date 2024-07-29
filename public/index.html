@@ -18,6 +18,10 @@
             font-size: 12px;
 
         }
+        p{
+            text-align: left;
+            margin-left: 12px;
+        }
         table{
             background-color: rgb(230, 169, 3);
             margin: 6px auto 0px auto;
@@ -44,9 +48,10 @@
         fieldset{
             width: 90%;
             min-width: 240px;
-            margin: 12px auto;
+            margin: 12px auto 0px auto;
             border-radius: 12px 12px 12px 12px;
             padding: 3px 9px 12px 9px;
+            height: 600px;
         }
         legend{
             font-weight: bold;
@@ -96,13 +101,23 @@
             height: 40px;
             font-size: x-small;
             position: absolute;
-            top: 30px;
-            right: 5%;
+            top: 33px;
+            right: 6%;
             background: white;
             color: rgb(230, 169, 3);
             border-radius: 20px;
             padding-left: 0px;
             padding-right: 0px;
+        }
+        #clima{
+            display: none;
+        }
+        .nav{
+            width: 90%;
+            margin: 0 auto;
+        }
+        .menu{
+            width: 90px;
         }
 
     </style>
@@ -110,7 +125,7 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function(){
-            readDay();
+            //readDay();
             });
 
         function readDay(){
@@ -270,11 +285,21 @@
             myChart.destroy();
             readDay();
         }
+
+        function clima(){
+            document.getElementById("clima").style.display="unset";
+            readDay();
+        }
+        function cargas(){
+            document.getElementById("clima").style.display="none";
+            
+        }
     </script>
 
 </head>
 <body>
     <fieldset>
+    <div id="clima">   
         <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
     <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75"></p>
@@ -344,7 +369,12 @@
     <canvas id="solRadar"></canvas>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h5>Powered by Open-Meteo</h5>
+    </div>
     </fieldset>
+    <div class="nav">
+        <button class="menu" id="potencial" onclick="clima()">Wheater</button>
+        <button class="menu" id="cargas" onclick="cargas()">Loads</button>
+    </div>
     
 </body>
 </html>
