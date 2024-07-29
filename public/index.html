@@ -70,7 +70,7 @@
         }
         input{
             text-align: center;
-            width: 65%;
+            width: 60%;
             background-color: white;
             border-radius: 6px;
             margin: 3px;
@@ -90,6 +90,19 @@
             border: 1px solid white;
             background-color: white;
             font-size: 12px;
+        }
+        .local{
+            width: 40px;
+            height: 40px;
+            font-size: x-small;
+            position: absolute;
+            top: 30px;
+            right: 5%;
+            background: white;
+            color: rgb(230, 169, 3);
+            border-radius: 20px;
+            padding-left: 0px;
+            padding-right: 0px;
         }
 
     </style>
@@ -147,6 +160,12 @@
                 let eficiencia = 0.15;
 
                 const radEfectiva = radiacionCorta.map( number => eficiencia * number);
+                const eEolica = viento.map( number => 0.4 * (number*number*number));
+                
+                let totalEolica = 0;
+                eEolica.forEach( num => {
+                    totalEolica += num;
+                });
                
                 console.log("Radiacion Efectiva: ");
                 console.log(radEfectiva);
@@ -201,7 +220,7 @@
                 document.getElementById("radiacion").innerHTML=parseInt(totalW);
                 document.getElementById("maxViento").innerHTML= maxViento;
                 document.getElementById("mediaViento").innerHTML= mediaViento.toFixed(2);
-
+                document.getElementById("energiaEolica").innerHTML= parseInt(totalEolica);
                 
                 const ctx = document.getElementById('solRadar');
                 const ctx2 = document.getElementById('solGen');
@@ -259,7 +278,7 @@
         <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
     <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75"></p>
-    
+    <a id=local href="https://www.google.com/maps" target="_blank"><button class="local">Map</button></a>
     <table>
         <thead>
             <tr>
@@ -290,12 +309,12 @@
                 <td>msnm</td>
             </tr>
             <tr>
-                <td>Temperatura</td>
+                <td>Temperature</td>
                 <td id="temperatura"></td>
                 <td>°C</td>
             </tr>
             <tr>
-                <td>Humedad</td>
+                <td>Humidity</td>
                 <td id="humedad"></td>
                 <td>%</td>
             </tr>
@@ -313,6 +332,11 @@
                 <td>Wind Velocity (avg)</td>
                 <td id="mediaViento"></td>
                 <td>m/s</td>
+            </tr>
+            <tr>
+                <td>Daily Eolic Potential</td>
+                <td id="energiaEolica"></td>
+                <td>W/m2</td>
             </tr>
         </tbody>
     </table>
