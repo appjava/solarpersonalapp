@@ -327,6 +327,8 @@
             .then(data => {
                 let incuTemperatura = data.feeds[1].field1;
                 let incuHumedad = data.feeds[1].field2;
+                let incuTime = data.feeds[1].created_at;
+
                 let incuTemp = parseFloat(incuTemperatura).toFixed(2);
                 let incuHum = parseFloat(incuHumedad).toFixed(2);
 
@@ -335,7 +337,11 @@
                 console.log("Humidity INCU (%): ");
                 console.log(incuHum);
 
-                document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+"HumINCU: "+incuHum+" %";
+                //document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+incuHum+" %"+" :HumINCU";
+                document.getElementById('titulo').innerHTML = `
+                <p>Temperature Incu: ${incuTemp} °C | ${incuHum} % : Humidity Incu</p>
+                <p>${incuTime}</p>
+                `;
             });
         
         }
