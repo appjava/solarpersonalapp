@@ -319,6 +319,23 @@
             document.getElementById("clima").style.display="none";
             document.getElementById("carga").style.display="none";
             document.getElementById("intro").style.display="unset";
+            
+            fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
+            .then(response => response.json())
+            .then(data => {
+                let incuTemperatura = data.feeds[1].field1;
+                let incuHumedad = data.feeds[1].field2;
+                let incuTemp = parseFloat(incuTemperatura).toFixed(2);
+                let incuHum = parseFloat(incuHumedad).toFixed(2);
+
+                console.log("Temperature INCU (°C): ");
+                console.log(incuTemp);
+                console.log("Humidity INCU (%): ");
+                console.log(incuHum);
+
+                document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+"HumINCU: "+incuHum+" %";
+            });
+        
         }
     </script>
 
