@@ -44,6 +44,11 @@
         td{
             padding: 3px;
         }
+        th{
+            min-width: 30px;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
         
         fieldset{
             width: 90%;
@@ -51,7 +56,7 @@
             margin: 12px auto 0px auto;
             border-radius: 12px 12px 12px 12px;
             padding: 3px 9px 12px 9px;
-            height: 600px;
+            height: auto;
         }
         legend{
             font-weight: bold;
@@ -112,12 +117,22 @@
         #clima{
             display: none;
         }
+        #carga{
+            display: none;
+        }
         .nav{
             width: 90%;
-            margin: 0 auto;
+            margin: 12px auto 0px auto;
         }
         .menu{
             width: 90px;
+            margin-bottom: 0px;
+            border-radius: 12px;
+        }
+        td>input{
+            margin: 0;
+            width: 90%;
+            font-size: 12px
         }
 
     </style>
@@ -287,12 +302,13 @@
         }
 
         function clima(){
+            document.getElementById("carga").style.display="none";
             document.getElementById("clima").style.display="unset";
             readDay();
         }
         function cargas(){
             document.getElementById("clima").style.display="none";
-            
+            document.getElementById("carga").style.display="unset";
         }
     </script>
 
@@ -300,7 +316,7 @@
 <body>
     <fieldset>
     <div id="clima">   
-        <legend id="dia">EchoWeather</legend>
+    <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
     <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75"></p>
     <a id=local href="https://www.google.com/maps" target="_blank"><button class="local">Map</button></a>
@@ -370,11 +386,103 @@
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h5>Powered by Open-Meteo</h5>
     </div>
+
+    <div id="carga">   
+        <legend id="legenda">Daily Loads</legend>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Cant</th>
+                    <th>Watts</th>
+                    <th>Hours</th>
+                    <th>W-H</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TV</td>
+                    <td><input id="tv" type="number" placeholder="0"></td>
+                    <td><input id="tvUnt" type="number" placeholder="0"></td>
+                    <td><input id="tvWatt" type="number" placeholder="0"></td>
+                    <td id="tvWh">1000</td>
+                </tr>
+                <tr>
+                    <td>Laptop</td>
+                    <td><input id="lp" type="number" placeholder="0"></td>
+                    <td><input id="lpUnt" type="number" placeholder="0"></td>
+                    <td><input id="lpWatt" type="number" placeholder="0"></td>
+                    <td id="lpWh">0</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input id="ph" type="number" placeholder="0"></td>
+                    <td><input id="phUnt" type="number" placeholder="0"></td>
+                    <td><input id="phWatt" type="number" placeholder="0"></td>
+                    <td id="phWh">0</td>
+                </tr>
+                <tr>
+                    <td>Tablet</td>
+                    <td><input id="tb" type="number" placeholder="0"></td>
+                    <td><input id="tbUnt" type="number" placeholder="0"></td>
+                    <td><input id="tbWatt" type="number" placeholder="0"></td>
+                    <td id="tbWh">0</td>
+                </tr>
+                <tr>
+                    <td>Light</td>
+                    <td><input id="lg" type="number" placeholder="0"></td>
+                    <td><input id="lgUnt" type="number" placeholder="0"></td>
+                    <td><input id="lgWatt" type="number" placeholder="0"></td>
+                    <td id="lgWh">0</td>
+                </tr>
+                <tr>
+                    <td>Wifi</td>
+                    <td><input id="wf" type="number" placeholder="0"></td>
+                    <td><input id="wfUnt" type="number" placeholder="0"></td>
+                    <td><input id="wfWatt" type="number" placeholder="0"></td>
+                    <td id="wfWh">0</td>
+                </tr>
+                <tr>
+                    <td>HiFi</td>
+                    <td><input id="hf" type="number" placeholder="0"></td>
+                    <td><input id="hfUnt" type="number" placeholder="0"></td>
+                    <td><input id="hfWatt" type="number" placeholder="0"></td>
+                    <td id="hfWh">0</td>
+                </tr>
+                <tr>
+                    <td>CCTV</td>
+                    <td><input id="cc" type="number" placeholder="0"></td>
+                    <td><input id="ccUnt" type="number" placeholder="0"></td>
+                    <td><input id="ccWatt" type="number" placeholder="0"></td>
+                    <td id="ccWh">0</td>
+                </tr>
+                <tr>
+                    <td>IoT</td>
+                    <td><input id="io" type="number" placeholder="0"></td>
+                    <td><input id="ioUnt" type="number" placeholder="0"></td>
+                    <td><input id="ioWatt" type="number" placeholder="0"></td>
+                    <td id="ioWh">0</td>
+                </tr>
+                <tr>
+                    <td>Others</td>
+                    <td><input id="ot" type="number" placeholder="0"></td>
+                    <td><input id="otUnt" type="number" placeholder="0"></td>
+                    <td><input id="otWatt" type="number" placeholder="0"></td>
+                    <td id="otWh">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="calculo">Press to Calculate</button>
+        <img src="home.jpg" alt="Loading ...">
+        <!--<canvas id="solRadar"></canvas>-->
+        </div>
+        <div class="nav">
+            <button class="menu" id="potencial" onclick="clima()">Wheater</button>
+            <button class="menu" id="cargas" onclick="cargas()">Loads</button>
+        </div>
     </fieldset>
-    <div class="nav">
-        <button class="menu" id="potencial" onclick="clima()">Wheater</button>
-        <button class="menu" id="cargas" onclick="cargas()">Loads</button>
-    </div>
+    
     
 </body>
 </html>
