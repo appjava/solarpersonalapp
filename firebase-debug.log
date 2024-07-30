@@ -1,0 +1,62 @@
+[debug] [2024-07-30T01:46:07.376Z] ----------------------------------------------------------------------
+[debug] [2024-07-30T01:46:07.380Z] Command:       /usr/bin/node /usr/bin/firebase deploy --only hosting:pvenergy --project echo-group
+[debug] [2024-07-30T01:46:07.381Z] CLI Version:   12.6.0
+[debug] [2024-07-30T01:46:07.382Z] Platform:      linux
+[debug] [2024-07-30T01:46:07.383Z] Node Version:  v18.17.1
+[debug] [2024-07-30T01:46:07.383Z] Time:          Mon Jul 29 2024 20:46:07 GMT-0500 (hora estándar de Colombia)
+[debug] [2024-07-30T01:46:07.383Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-30T01:46:07.494Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-30T01:46:07.494Z] > authorizing via signed-in user (appjavadev2019@gmail.com)
+[debug] [2024-07-30T01:46:07.495Z] [iam] checking project echo-group for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-30T01:46:07.497Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/echo-group:testIamPermissions [none]
+[debug] [2024-07-30T01:46:07.498Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/echo-group:testIamPermissions x-goog-quota-user=projects/echo-group
+[debug] [2024-07-30T01:46:07.498Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/echo-group:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-30T01:46:08.235Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/echo-group:testIamPermissions 200
+[debug] [2024-07-30T01:46:08.236Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/echo-group:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-30T01:46:08.238Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/echo-group [none]
+[debug] [2024-07-30T01:46:08.772Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/echo-group 200
+[debug] [2024-07-30T01:46:08.772Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/echo-group {"projectId":"echo-group","projectNumber":"559454886829","displayName":"EchoGroup","name":"projects/echo-group","resources":{"hostingSite":"echo-group"},"state":"ACTIVE","etag":"1_6a4cd8ab-78c6-4891-8a9c-7af41883267e"}
+[info] 
+[info] === Deploying to 'echo-group'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-07-30T01:46:08.783Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pvenergy/versions [none]
+[debug] [2024-07-30T01:46:08.783Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pvenergy/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-07-30T01:46:15.276Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pvenergy/versions 200
+[debug] [2024-07-30T01:46:15.277Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pvenergy/versions {"name":"projects/559454886829/sites/pvenergy/versions/57dacd9471dee7c4","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[pvenergy]: beginning deploy... 
+[info] i  hosting[pvenergy]: found 2 files in public 
+[debug] [2024-07-30T01:46:15.292Z] [hosting] uploading with 200 concurrency
+[debug] [2024-07-30T01:46:15.306Z] [hosting] hash cache [cHVibGlj] stored for 2 files
+[debug] [2024-07-30T01:46:15.307Z] [hosting][hash queue][FINAL] {"max":8,"min":2,"avg":5,"active":0,"complete":2,"success":2,"errored":0,"retried":0,"total":2,"elapsed":11}
+[debug] [2024-07-30T01:46:15.307Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/559454886829/sites/pvenergy/versions/57dacd9471dee7c4:populateFiles [none]
+[debug] [2024-07-30T01:46:15.308Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/559454886829/sites/pvenergy/versions/57dacd9471dee7c4:populateFiles {"files":{"/home.jpg":"c02c15856a28ab10ac9958da55a083fa872320e52ccbab9471be3ea5ccc9fa22","/index.html":"7cb0a06513cce227b7df15950c2e559b8046cc673d4778e648bdb626e4c0ec89"}}
+[debug] [2024-07-30T01:46:23.757Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/559454886829/sites/pvenergy/versions/57dacd9471dee7c4:populateFiles 200
+[debug] [2024-07-30T01:46:23.758Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/559454886829/sites/pvenergy/versions/57dacd9471dee7c4:populateFiles {"uploadRequiredHashes":["7cb0a06513cce227b7df15950c2e559b8046cc673d4778e648bdb626e4c0ec89"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/pvenergy/versions/57dacd9471dee7c4/files"}
+[debug] [2024-07-30T01:46:23.770Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/pvenergy/versions/57dacd9471dee7c4/files/7cb0a06513cce227b7df15950c2e559b8046cc673d4778e648bdb626e4c0ec89 [none]
+[debug] [2024-07-30T01:46:23.772Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/pvenergy/versions/57dacd9471dee7c4/files/7cb0a06513cce227b7df15950c2e559b8046cc673d4778e648bdb626e4c0ec89 [stream]
+[debug] [2024-07-30T01:46:23.780Z] [hosting][populate queue][FINAL] {"max":8465,"min":8465,"avg":8465,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":8475}
+[debug] [2024-07-30T01:46:23.781Z] [hosting] uploads queued: 1
+[debug] [2024-07-30T01:46:25.000Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/pvenergy/versions/57dacd9471dee7c4/files/7cb0a06513cce227b7df15950c2e559b8046cc673d4778e648bdb626e4c0ec89 200
+[debug] [2024-07-30T01:46:25.001Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/pvenergy/versions/57dacd9471dee7c4/files/7cb0a06513cce227b7df15950c2e559b8046cc673d4778e648bdb626e4c0ec89 [stream]
+[debug] [2024-07-30T01:46:25.002Z] [hosting][upload queue][FINAL] {"max":1243,"min":1243,"avg":1243,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1243}
+[info] ✔  hosting[pvenergy]: file upload complete 
+[debug] [2024-07-30T01:46:25.006Z] [hosting] deploy completed after 9723ms
+[debug] [2024-07-30T01:46:25.006Z] [
+  {
+    "config": {
+      "site": "pvenergy",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    "version": "projects/559454886829/sites/pvenergy/versions/57dacd9471dee7c4"
+  }
+]
+[info] i  hosting[pvenergy]: finalizing version... 
+[debug] [2024-07-30T01:46:25.011Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pvenergy/versions/57dacd9471dee7c4 updateMask=status%2Cconfig
+[debug] [2024-07-30T01:46:25.011Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/pvenergy/versions/57dacd9471dee7c4 {"status":"FINALIZED","config":{}}
