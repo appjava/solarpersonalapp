@@ -124,6 +124,9 @@
         #carga{
             display: none;
         }
+        #resume{
+            display: none;
+        }
         .nav{
             width: 90%;
             margin: 12px auto 0px auto;
@@ -309,18 +312,22 @@
         function clima(){
             document.getElementById("intro").style.display="none";
             document.getElementById("carga").style.display="none";
+            document.getElementById("resume").style.display="none";
             document.getElementById("clima").style.display="unset";
             readDay();
         }
         function cargas(){
             document.getElementById("intro").style.display="none";
             document.getElementById("clima").style.display="none";
+            document.getElementById("resume").style.display="none";
             document.getElementById("carga").style.display="unset";
         }
         function resumen(){
             document.getElementById("clima").style.display="none";
             document.getElementById("carga").style.display="none";
-            document.getElementById("intro").style.display="unset";
+            document.getElementById("intro").style.display="none";
+            document.getElementById("resume").style.display="unset";
+            
             
             fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
             .then(response => response.json())
@@ -338,7 +345,7 @@
                 console.log(incuHum);
 
                 //document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+incuHum+" %"+" :HumINCU";
-                document.getElementById('titulo').innerHTML = `
+                document.getElementById('incubadora').innerHTML = `
                 <h3>Incubator</h3>
                 <h3>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h3>
                 <h4>${incuTime}</h4>
@@ -426,7 +433,6 @@
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h5>Powered by Open-Meteo</h5>
     </div>
-
     <div id="carga">   
         <legend id="legenda">Daily Loads</legend>
     
@@ -516,12 +522,16 @@
         <button id="calculo">Press to Calculate</button>
         <!--<img src="home.jpg" alt="Loading ...">-->
         <!--<canvas id="solRadar"></canvas>-->
-        </div>
-        <div class="nav">
-            <button class="menu" id="potencial" onclick="clima()">Wheater</button>
-            <button class="menu" id="cargas" onclick="cargas()">Loads</button>
-            <button class="menu" id="resumen" onclick="resumen()">Resume</button>
-        </div>
+    </div>
+    <div id="resume">
+        <legend id="incubadora">Resume</legend>
+        <img src="incu.png" alt="Loading ...">
+    </div>
+    <div class="nav">
+        <button class="menu" id="potencial" onclick="clima()">Wheater</button>
+        <button class="menu" id="cargas" onclick="cargas()">Loads</button>
+        <button class="menu" id="resumen" onclick="resumen()">Resume</button>
+    </div>
     </fieldset>
     
     
