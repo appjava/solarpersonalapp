@@ -75,8 +75,9 @@
             cursor: pointer;
         }
         img{
-            border-radius: 0px 0px 12px 12px;
-            width: 100%;
+            border-radius: 12px;
+            width: 90%;
+            margin-top: 12px;
         }
         input{
             text-align: center;
@@ -302,19 +303,30 @@
         }
 
         function clima(){
+            document.getElementById("intro").style.display="none";
             document.getElementById("carga").style.display="none";
             document.getElementById("clima").style.display="unset";
             readDay();
         }
         function cargas(){
+            document.getElementById("intro").style.display="none";
             document.getElementById("clima").style.display="none";
             document.getElementById("carga").style.display="unset";
+        }
+        function resumen(){
+            document.getElementById("clima").style.display="none";
+            document.getElementById("carga").style.display="none";
+            document.getElementById("intro").style.display="unset";
         }
     </script>
 
 </head>
 <body>
     <fieldset>
+    <div id="intro">
+        <legend id="titulo">Welcome to Solar Personal App</legend>
+        <img src="home.jpg" alt="Loading ...">
+    </div>
     <div id="clima">   
     <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
@@ -474,12 +486,13 @@
             </tbody>
         </table>
         <button id="calculo">Press to Calculate</button>
-        <img src="home.jpg" alt="Loading ...">
+        <!--<img src="home.jpg" alt="Loading ...">-->
         <!--<canvas id="solRadar"></canvas>-->
         </div>
         <div class="nav">
             <button class="menu" id="potencial" onclick="clima()">Wheater</button>
             <button class="menu" id="cargas" onclick="cargas()">Loads</button>
+            <button class="menu" id="resumen" onclick="resumen()">Resume</button>
         </div>
     </fieldset>
     
