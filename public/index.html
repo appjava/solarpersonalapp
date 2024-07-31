@@ -18,6 +18,10 @@
             font-size: 12px;
 
         }
+        p{
+            text-align: left;
+            margin-left: 12px;
+        }
         table{
             background-color: rgb(230, 169, 3);
             margin: 6px auto 0px auto;
@@ -40,16 +44,25 @@
         td{
             padding: 3px;
         }
+        th{
+            min-width: 30px;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
         
         fieldset{
             width: 90%;
             min-width: 240px;
-            margin: 12px auto;
+            margin: 12px auto 0px auto;
             border-radius: 12px 12px 12px 12px;
             padding: 3px 9px 12px 9px;
+            height: auto;
+            text-align: center;
         }
         legend{
             font-weight: bold;
+            padding-top: 9px;
+            margin: 0 auto;
         }
         button{
             width: 100%;
@@ -65,8 +78,9 @@
             cursor: pointer;
         }
         img{
-            border-radius: 0px 0px 12px 12px;
-            width: 100%;
+            border-radius: 12px;
+            width: 90%;
+            margin-top: 12px;
         }
         input{
             text-align: center;
@@ -96,13 +110,37 @@
             height: 40px;
             font-size: x-small;
             position: absolute;
-            top: 30px;
-            right: 5%;
+            top: 33px;
+            right: 6%;
             background: white;
             color: rgb(230, 169, 3);
             border-radius: 20px;
             padding-left: 0px;
             padding-right: 0px;
+        }
+        #clima{
+            display: none;
+        }
+        #carga{
+            display: none;
+        }
+        #resume{
+            display: none;
+        }
+        .nav{
+            width: 90%;
+            margin: 12px auto 0px auto;
+        }
+        .menu{
+            width: 30%;
+            margin-bottom: 0px;
+            border-radius: 12px;
+            font-size: small;
+        }
+        td>input{
+            margin: 0;
+            width: 90%;
+            font-size: 12px
         }
 
     </style>
@@ -110,7 +148,7 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function(){
-            readDay();
+            //readDay();
             });
 
         function readDay(){
@@ -270,12 +308,86 @@
             myChart.destroy();
             readDay();
         }
+
+        function clima(){
+            document.getElementById("intro").style.display="none";
+            document.getElementById("carga").style.display="none";
+            document.getElementById("resume").style.display="none";
+            document.getElementById("clima").style.display="unset";
+            readDay();
+        }
+        function cargas(){
+            document.getElementById("intro").style.display="none";
+            document.getElementById("clima").style.display="none";
+            document.getElementById("resume").style.display="none";
+            document.getElementById("carga").style.display="unset";
+        }
+        function resumen(){
+            document.getElementById("clima").style.display="none";
+            document.getElementById("carga").style.display="none";
+            document.getElementById("intro").style.display="none";
+            document.getElementById("resume").style.display="unset";
+            
+            
+            fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
+            .then(response => response.json())
+            .then(data => {
+                let incuTemperatura = data.feeds[1].field1;
+                let incuHumedad = data.feeds[1].field2;
+                let incuTime = data.feeds[1].created_at;
+
+                let incuTemp = parseFloat(incuTemperatura).toFixed(2);
+                let incuHum = parseFloat(incuHumedad).toFixed(2);
+
+                console.log("Temperature INCU (°C): ");
+                console.log(incuTemp);
+                console.log("Humidity INCU (%): ");
+                console.log(incuHum);
+
+                //document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+incuHum+" %"+" :HumINCU";
+                document.getElementById('incubadora').innerHTML = `
+                <h3>Incubator</h3>
+                <h3>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h3>
+                <h4>${incuTime}</h4>
+                `;
+            });
+            
+        }
+        function calcular(){
+            let totalWH = 0;
+
+            for (let i = 0; i < 10; i++){
+                var cantidad = document.getElementById("cant"+i).value;
+                if(!cantidad){
+                    cantidad = 0;
+                }
+                var vatios = document.getElementById("watt"+i).value;
+                if(!vatios){
+                    vatios = 0;
+                }
+                var horas = document.getElementById("hour"+i).value;
+                if(!horas){
+                    horas = 0;
+                }
+                let wattHora = parseFloat(cantidad)*parseFloat(vatios)*parseFloat(horas);
+                document.getElementById("wh"+i).innerHTML = wattHora; 
+                totalWH = totalWH + wattHora;
+            }
+            
+            console.log(totalWH);
+            document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
+        }
     </script>
 
 </head>
 <body>
     <fieldset>
-        <legend id="dia">EchoWeather</legend>
+    <div id="intro">
+        <legend id="titulo">Welcome to Solar Personal App</legend>
+        <img src="home.jpg" alt="Loading ...">
+    </div>
+    <div id="clima">   
+    <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
     <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75"></p>
     <a id=local href="https://www.google.com/maps" target="_blank"><button class="local">Map</button></a>
@@ -344,7 +456,108 @@
     <canvas id="solRadar"></canvas>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h5>Powered by Open-Meteo</h5>
+    </div>
+    <div id="carga">   
+        <legend id="legenda">Daily Loads</legend>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Cant</th>
+                    <th>Watts</th>
+                    <th>Hours</th>
+                    <th>W-H</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TV</td>
+                    <td><input id="cant0" type="number" placeholder="0" min="0" max="100"></td>
+                    <td><input id="watt0" type="number" placeholder="0" min="0"></td>
+                    <td><input id="hour0" type="number" placeholder="0" min="0" max="24"></td>
+                    <td id="wh0">-</td>
+                </tr>
+                <tr>
+                    <td>Laptop</td>
+                    <td><input id="cant1" type="number" placeholder="0"></td>
+                    <td><input id="watt1" type="number" placeholder="0"></td>
+                    <td><input id="hour1" type="number" placeholder="0"></td>
+                    <td id="wh1">-</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input id="cant2" type="number" placeholder="0"></td>
+                    <td><input id="watt2" type="number" placeholder="0"></td>
+                    <td><input id="hour2" type="number" placeholder="0"></td>
+                    <td id="wh2">-</td>
+                </tr>
+                <tr>
+                    <td>Tablet</td>
+                    <td><input id="cant3" type="number" placeholder="0"></td>
+                    <td><input id="watt3" type="number" placeholder="0"></td>
+                    <td><input id="hour3" type="number" placeholder="0"></td>
+                    <td id="wh3">-</td>
+                </tr>
+                <tr>
+                    <td>Light</td>
+                    <td><input id="cant4" type="number" placeholder="0"></td>
+                    <td><input id="watt4" type="number" placeholder="0"></td>
+                    <td><input id="hour4" type="number" placeholder="0"></td>
+                    <td id="wh4">-</td>
+                </tr>
+                <tr>
+                    <td>Wifi</td>
+                    <td><input id="cant5" type="number" placeholder="0"></td>
+                    <td><input id="watt5" type="number" placeholder="0"></td>
+                    <td><input id="hour5" type="number" placeholder="0"></td>
+                    <td id="wh5">-</td>
+                </tr>
+                <tr>
+                    <td>HiFi</td>
+                    <td><input id="cant6" type="number" placeholder="0"></td>
+                    <td><input id="watt6" type="number" placeholder="0"></td>
+                    <td><input id="hour6" type="number" placeholder="0"></td>
+                    <td id="wh6">-</td>
+                </tr>
+                <tr>
+                    <td>CCTV</td>
+                    <td><input id="cant7" type="number" placeholder="0"></td>
+                    <td><input id="watt7" type="number" placeholder="0"></td>
+                    <td><input id="hour7" type="number" placeholder="0"></td>
+                    <td id="wh7">-</td>
+                </tr>
+                <tr>
+                    <td>IoT</td>
+                    <td><input id="cant8" type="number" placeholder="0"></td>
+                    <td><input id="watt8" type="number" placeholder="0"></td>
+                    <td><input id="hour8" type="number" placeholder="0"></td>
+                    <td id="wh8">-</td>
+                </tr>
+                <tr>
+                    <td>Others</td>
+                    <td><input id="cant9" type="number" placeholder="0"></td>
+                    <td><input id="watt9" type="number" placeholder="0"></td>
+                    <td><input id="hour9" type="number" placeholder="0"></td>
+                    <td id="wh9">-</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="calculo" onclick="calcular()">Press to Calculate</button>
+        <!--<img src="home.jpg" alt="Loading ...">-->
+        <!--<canvas id="solRadar"></canvas>-->
+    </div>
+    <div id="resume">
+        <legend id="incubadora">Resume</legend>
+        <img src="incu.png" alt="Loading ...">
+    </div>
+    <div class="nav">
+        <button class="menu" id="potencial" onclick="clima()">Wheater</button>
+        <button class="menu" id="cargas" onclick="cargas()">Loads</button>
+        <button class="menu" id="resumen" onclick="resumen()">Resume</button>
+    </div>
     </fieldset>
+    
     
 </body>
 </html>
