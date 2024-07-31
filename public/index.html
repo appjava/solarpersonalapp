@@ -28,7 +28,7 @@
             width: 100%;
             border-radius: 12px 12px 0px 0px;
             padding: 6px 12px 12px 12px;
-            font-size: x-small;
+            font-size: small;
         }
         thead {
             background-color: rgb(230, 169, 3);
@@ -43,9 +43,10 @@
         }
         td{
             padding: 3px;
+            height: 24px;
         }
         th{
-            min-width: 48px;
+            min-width: 50px;
             padding-left: 6px;
             padding-right: 6px;
         }
@@ -63,6 +64,7 @@
             font-weight: bold;
             padding-top: 9px;
             margin: 0 auto;
+            font-size: 15px;
         }
         button{
             width: 100%;
@@ -85,6 +87,7 @@
         input{
             text-align: center;
             width: 60%;
+            height: 90%;
             background-color: white;
             border-radius: 6px;
             margin: 3px;
@@ -111,7 +114,7 @@
             font-size: x-small;
             position: absolute;
             top: 33px;
-            right: 6%;
+            right: 9%;
             background: white;
             color: rgb(230, 169, 3);
             border-radius: 20px;
@@ -164,6 +167,16 @@
             color: black;
             border-radius: 12px;
             padding: 6px;
+        }
+
+        @media (min-width: 900px) {
+            fieldset{
+                max-width: 600px;
+            }
+            .local{
+            top: 33px;
+            right: 27%;
+            }
         }
 
 
@@ -372,9 +385,9 @@
 
                 //document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+incuHum+" %"+" :HumINCU";
                 document.getElementById('incubadora').innerHTML = `
-                <h3>Incubator</h3>
-                <h3>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h3>
-                <h4>${incuTime}</h4>
+                <h4>Incubator</h4>
+                <h4>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h4>
+                <h5>${incuTime}</h5>
                 `;
             });
             document.getElementById("balance").innerHTML = `
@@ -450,7 +463,7 @@
     <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
     <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75"></p>
-    <a id=local href="https://www.google.com/maps" target="_blank"><button class="local">Map</button></a>
+    <a id=local href="https://satellite-map.gosur.com" target="_blank"><button class="local">Map</button></a>
     <table>
         <thead>
             <tr>
@@ -614,7 +627,7 @@
         <div id="balance"></div>
     </div>
     <div class="nav">
-        <button class="menu" id="potencial" onclick="clima()">Wheater</button>
+        <button class="menu" id="potencial" onclick="clima()">Weather</button>
         <button class="menu" id="cargas" onclick="cargas()">Loads</button>
         <button class="menu" id="resumen" onclick="resumen()">Resume</button>
     </div>
