@@ -351,7 +351,31 @@
                 <h4>${incuTime}</h4>
                 `;
             });
-        
+            
+        }
+        function calcular(){
+            let totalWH = 0;
+
+            for (let i = 0; i < 10; i++){
+                var cantidad = document.getElementById("cant"+i).value;
+                if(!cantidad){
+                    cantidad = 0;
+                }
+                var vatios = document.getElementById("watt"+i).value;
+                if(!vatios){
+                    vatios = 0;
+                }
+                var horas = document.getElementById("hour"+i).value;
+                if(!horas){
+                    horas = 0;
+                }
+                let wattHora = parseFloat(cantidad)*parseFloat(vatios)*parseFloat(horas);
+                document.getElementById("wh"+i).innerHTML = wattHora; 
+                totalWH = totalWH + wattHora;
+            }
+            
+            console.log(totalWH);
+            document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
         }
     </script>
 
@@ -449,77 +473,77 @@
             <tbody>
                 <tr>
                     <td>TV</td>
-                    <td><input id="tv" type="number" placeholder="0"></td>
-                    <td><input id="tvUnt" type="number" placeholder="0"></td>
-                    <td><input id="tvWatt" type="number" placeholder="0"></td>
-                    <td id="tvWh">0</td>
+                    <td><input id="cant0" type="number" placeholder="0" min="0" max="100"></td>
+                    <td><input id="watt0" type="number" placeholder="0" min="0"></td>
+                    <td><input id="hour0" type="number" placeholder="0" min="0" max="24"></td>
+                    <td id="wh0">-</td>
                 </tr>
                 <tr>
                     <td>Laptop</td>
-                    <td><input id="lp" type="number" placeholder="0"></td>
-                    <td><input id="lpUnt" type="number" placeholder="0"></td>
-                    <td><input id="lpWatt" type="number" placeholder="0"></td>
-                    <td id="lpWh">0</td>
+                    <td><input id="cant1" type="number" placeholder="0"></td>
+                    <td><input id="watt1" type="number" placeholder="0"></td>
+                    <td><input id="hour1" type="number" placeholder="0"></td>
+                    <td id="wh1">-</td>
                 </tr>
                 <tr>
                     <td>Phone</td>
-                    <td><input id="ph" type="number" placeholder="0"></td>
-                    <td><input id="phUnt" type="number" placeholder="0"></td>
-                    <td><input id="phWatt" type="number" placeholder="0"></td>
-                    <td id="phWh">0</td>
+                    <td><input id="cant2" type="number" placeholder="0"></td>
+                    <td><input id="watt2" type="number" placeholder="0"></td>
+                    <td><input id="hour2" type="number" placeholder="0"></td>
+                    <td id="wh2">-</td>
                 </tr>
                 <tr>
                     <td>Tablet</td>
-                    <td><input id="tb" type="number" placeholder="0"></td>
-                    <td><input id="tbUnt" type="number" placeholder="0"></td>
-                    <td><input id="tbWatt" type="number" placeholder="0"></td>
-                    <td id="tbWh">0</td>
+                    <td><input id="cant3" type="number" placeholder="0"></td>
+                    <td><input id="watt3" type="number" placeholder="0"></td>
+                    <td><input id="hour3" type="number" placeholder="0"></td>
+                    <td id="wh3">-</td>
                 </tr>
                 <tr>
                     <td>Light</td>
-                    <td><input id="lg" type="number" placeholder="0"></td>
-                    <td><input id="lgUnt" type="number" placeholder="0"></td>
-                    <td><input id="lgWatt" type="number" placeholder="0"></td>
-                    <td id="lgWh">0</td>
+                    <td><input id="cant4" type="number" placeholder="0"></td>
+                    <td><input id="watt4" type="number" placeholder="0"></td>
+                    <td><input id="hour4" type="number" placeholder="0"></td>
+                    <td id="wh4">-</td>
                 </tr>
                 <tr>
                     <td>Wifi</td>
-                    <td><input id="wf" type="number" placeholder="0"></td>
-                    <td><input id="wfUnt" type="number" placeholder="0"></td>
-                    <td><input id="wfWatt" type="number" placeholder="0"></td>
-                    <td id="wfWh">0</td>
+                    <td><input id="cant5" type="number" placeholder="0"></td>
+                    <td><input id="watt5" type="number" placeholder="0"></td>
+                    <td><input id="hour5" type="number" placeholder="0"></td>
+                    <td id="wh5">-</td>
                 </tr>
                 <tr>
                     <td>HiFi</td>
-                    <td><input id="hf" type="number" placeholder="0"></td>
-                    <td><input id="hfUnt" type="number" placeholder="0"></td>
-                    <td><input id="hfWatt" type="number" placeholder="0"></td>
-                    <td id="hfWh">0</td>
+                    <td><input id="cant6" type="number" placeholder="0"></td>
+                    <td><input id="watt6" type="number" placeholder="0"></td>
+                    <td><input id="hour6" type="number" placeholder="0"></td>
+                    <td id="wh6">-</td>
                 </tr>
                 <tr>
                     <td>CCTV</td>
-                    <td><input id="cc" type="number" placeholder="0"></td>
-                    <td><input id="ccUnt" type="number" placeholder="0"></td>
-                    <td><input id="ccWatt" type="number" placeholder="0"></td>
-                    <td id="ccWh">0</td>
+                    <td><input id="cant7" type="number" placeholder="0"></td>
+                    <td><input id="watt7" type="number" placeholder="0"></td>
+                    <td><input id="hour7" type="number" placeholder="0"></td>
+                    <td id="wh7">-</td>
                 </tr>
                 <tr>
                     <td>IoT</td>
-                    <td><input id="io" type="number" placeholder="0"></td>
-                    <td><input id="ioUnt" type="number" placeholder="0"></td>
-                    <td><input id="ioWatt" type="number" placeholder="0"></td>
-                    <td id="ioWh">0</td>
+                    <td><input id="cant8" type="number" placeholder="0"></td>
+                    <td><input id="watt8" type="number" placeholder="0"></td>
+                    <td><input id="hour8" type="number" placeholder="0"></td>
+                    <td id="wh8">-</td>
                 </tr>
                 <tr>
                     <td>Others</td>
-                    <td><input id="ot" type="number" placeholder="0"></td>
-                    <td><input id="otUnt" type="number" placeholder="0"></td>
-                    <td><input id="otWatt" type="number" placeholder="0"></td>
-                    <td id="otWh">0</td>
+                    <td><input id="cant9" type="number" placeholder="0"></td>
+                    <td><input id="watt9" type="number" placeholder="0"></td>
+                    <td><input id="hour9" type="number" placeholder="0"></td>
+                    <td id="wh9">-</td>
                 </tr>
             </tbody>
         </table>
-        <button id="calculo">Press to Calculate</button>
+        <button id="calculo" onclick="calcular()">Press to Calculate</button>
         <!--<img src="home.jpg" alt="Loading ...">-->
         <!--<canvas id="solRadar"></canvas>-->
     </div>
