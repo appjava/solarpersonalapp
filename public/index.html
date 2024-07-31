@@ -142,6 +142,30 @@
             width: 90%;
             font-size: 12px
         }
+        #mostrar{
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 12px auto 24px auto;
+
+        }
+        #generado{
+            min-width: 90px;
+            width: 30%;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            padding: 6px;
+        }
+        #usado{
+            min-width: 90px;
+            width: 30%;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            padding: 6px;
+        }
+
 
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -355,7 +379,19 @@
             });
             document.getElementById("balance").innerHTML = `
                 <h2>Daily Energy Balance</h2>
-                <h3>Generated: ${parseInt(totalW)} Wh || ${parseInt(totalWH)} Wh :Used</h3>
+                <div id="mostrar">
+                <div id="generado">
+                    <h3>Generated</h3>
+                    <h1>${parseInt(totalW)}</h1>
+                    <h3>Wh</h3>    
+                </div>
+                <div id="usado">
+                    <h3>Used</h3>
+                    <h1>${parseInt(totalWH)}</h1>
+                    <h3>Wh</h3>    
+                </div>
+                <!--<h3>Generated: ${parseInt(totalW)} Wh || ${parseInt(totalWH)} Wh :Used</h3>-->
+                </div>
                 `;
         }
         let totalWH = 0;
