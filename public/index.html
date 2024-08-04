@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar Personal APP </title>
-    
+    <script src="echarts.js"></script>
     <style>
         *{
             margin: 0;
@@ -168,6 +168,20 @@
             border-radius: 12px;
             padding: 6px;
         }
+        #instalado{
+            font-size: 18px;
+        }
+        #instalados{
+            height: 45px;
+            width: 120px;
+            font-size: 24px;
+        }
+        #main{
+            width: 600px;
+            height:400px;
+            color: white;
+        }
+        
 
         @media (min-width: 900px) {
             fieldset{
@@ -417,9 +431,10 @@
                 
             }       
         let totalWH = 0;
+
         function calcular(){
             totalWH = 0;
-
+            let meArray = [];
             for (let i = 0; i < 10; i++){
                 var cantidad = document.getElementById("cant"+i).value;
                 if(!cantidad){
@@ -436,10 +451,40 @@
                 let wattHora = parseFloat(cantidad)*parseFloat(vatios)*parseFloat(horas);
                 document.getElementById("wh"+i).innerHTML = wattHora; 
                 totalWH = totalWH + wattHora;
+                meArray.push(wattHora);
             }
             
             console.log(totalWH);
             document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
+
+    
+            // Initialize the echarts instance based on the prepared dom
+            var myChart = echarts.init(document.getElementById('main'));
+      
+            // Specify the configuration items and data for the chart
+            var option = {
+              title: {
+                text: ''
+              },
+              tooltip: {},
+              legend: {
+                data: ['Wh']
+              },
+              xAxis: {
+                data: ['TV', 'Laptop', 'Phone', 'Tablet', 'Light', 'WiFi', 'HiFi', 'CCTV', 'IoT', 'Other']
+              },
+              yAxis: {},
+              series: [
+                {
+                  name: 'Wh',
+                  type: 'bar',
+                  data: meArray
+                }
+              ]
+            };
+      
+            // Display the chart using the configuration items and data just specified.
+            myChart.setOption(option);
         }
         function limpiar(){
             totalWH = 0;
@@ -467,7 +512,9 @@
     <div id="intro">
         <legend id="titulo">Welcome to Solar Personal App</legend>
         <img src="home.jpg" alt="Loading ...">
+        
     </div>
+
     <div id="clima">   
     <legend id="dia">EchoWeather</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375"></p>
@@ -539,6 +586,7 @@
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h5>Powered by Open-Meteo</h5>
     </div>
+
     <div id="carga">   
         <legend id="legenda">Daily Loads</legend>
     
@@ -626,9 +674,13 @@
             </tbody>
         </table>
         <button id="calculo" onclick="calcular()">Press to Calculate</button>
+
+        <div id="main"></div>
+        
+
         <button id="limpiar" onclick="limpiar()">Clear All</button>
         <div id="paneles">
-            <label for="instalado">Instaled PV System: </label>
+            <label id="instalado" for="instalado">Instaled Photovoltaic System (W): </label>
             <input name="instalado" id="instalados" type="number" list="pvWatts">
             <datalist id="pvWatts">
                 <option value="50">50W</option>
