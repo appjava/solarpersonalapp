@@ -75,7 +75,7 @@
             margin-bottom: 12px;
             margin-top: 0px;
             text-transform: uppercase;
-            background-color: rgb(230, 169, 3);
+            background-color: #e6a903;
             color: white;
             cursor: pointer;
         }
@@ -177,9 +177,10 @@
             font-size: 24px;
         }
         #main{
-            width: 600px;
-            height:400px;
-            color: white;
+            width: 100%;
+            height: 350px;
+            margin: 0 auto;
+            background-color: white;
         }
         
 
@@ -200,6 +201,7 @@
 
         document.addEventListener('DOMContentLoaded', function(){
             //readDay();
+
             });
         
         let totalW = 0;
@@ -452,17 +454,27 @@
                 document.getElementById("wh"+i).innerHTML = wattHora; 
                 totalWH = totalWH + wattHora;
                 meArray.push(wattHora);
+                
             }
             
             console.log(totalWH);
             document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
-
+            loadChart(meArray);
     
+        }
+        function loadChart(tCargas){
             // Initialize the echarts instance based on the prepared dom
             var myChart = echarts.init(document.getElementById('main'));
+            
+            window.addEventListener('resize', function() {
+                myChart.resize();
+            });
       
             // Specify the configuration items and data for the chart
             var option = {
+                color: [
+                    '#e6a903'
+                ],
               title: {
                 text: ''
               },
@@ -478,7 +490,7 @@
                 {
                   name: 'Wh',
                   type: 'bar',
-                  data: meArray
+                  data: tCargas
                 }
               ]
             };
@@ -488,6 +500,8 @@
         }
         function limpiar(){
             totalWH = 0;
+            meArray = 0;
+            loadChart(meArray);
 
             for (let i = 0; i < 10; i++){
                 document.getElementById("cant"+i).value = 0;
