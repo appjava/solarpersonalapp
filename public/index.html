@@ -4,521 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar Personal APP </title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+
+    <!--Charts-->
     <script src="echarts.js"></script>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            text-align: center;
-            width: 100%;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-
-        }
-        p{
-            text-align: left;
-            margin-left: 12px;
-        }
-        table{
-            background-color: rgb(230, 169, 3);
-            margin: 6px auto 0px auto;
-            width: 100%;
-            border-radius: 12px 12px 0px 0px;
-            padding: 6px 12px 12px 12px;
-            font-size: small;
-        }
-        thead {
-            background-color: rgb(230, 169, 3);
-            border-radius: 12px 12px 0px 0px;
-            color: white;
-            font-size: x-small;
-            text-transform: uppercase;
-        }
-        tbody{
-            background-color: white;
-            color: black;
-        }
-        td{
-            padding: 3px;
-            height: 24px;
-        }
-        th{
-            min-width: 33px;
-            padding-left: 6px;
-            padding-right: 6px;
-        }
-        
-        fieldset{
-            width: 90%;
-            min-width: 240px;
-            margin: 12px auto 0px auto;
-            border-radius: 12px 12px 12px 12px;
-            padding: 3px 9px 12px 9px;
-            height: auto;
-            text-align: center;
-        }
-        legend{
-            font-weight: bold;
-            padding-top: 9px;
-            margin: 0 auto;
-            font-size: 15px;
-        }
-        button{
-            width: 100%;
-            font-weight: bold;
-            font-size: 15px;
-            height: 45px;
-            border-radius: 0px 0px 12px 12px;
-            margin-bottom: 12px;
-            margin-top: 0px;
-            text-transform: uppercase;
-            background-color: #e6a903;
-            color: white;
-            cursor: pointer;
-        }
-        img{
-            border-radius: 12px;
-            width: 90%;
-            margin-top: 12px;
-        }
-        input{
-            text-align: center;
-            width: 60%;
-            height: 75%;
-            background-color: white;
-            border-radius: 6px;
-            margin: 3px;
-            font-size: small;
-        }
-        label{
-            font-weight: bold;
-        }
-        #radiacion{
-            background-color: rgb(230, 169, 3);
-            color: white;
-            font-weight: bold;
-        }
-        #solRadar{
-            max-width: 100%;
-            height: 240px;
-            border: 1px solid white;
-            background-color: white;
-            font-size: 12px;
-        }
-        .local{
-            width: 40px;
-            height: 40px;
-            font-size: x-small;
-            position: absolute;
-            top: 33px;
-            right: 5%;
-            background: white;
-            color: rgb(230, 169, 3);
-            border-radius: 20px;
-            padding-left: 0px;
-            padding-right: 0px;
-        }
-        #clima{
-            display: none;
-        }
-        #carga{
-            display: none;
-        }
-        #resume{
-            display: none;
-        }
-        .nav{
-            width: 90%;
-            margin: 12px auto 0px auto;
-        }
-        .menu{
-            width: 30%;
-            margin-bottom: 0px;
-            border-radius: 12px;
-            font-size: small;
-        }
-        td>input{
-            margin: 0;
-            width: 90%;
-            font-size: 12px
-        }
-        #mostrar{
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 12px auto 24px auto;
-
-        }
-        #generado{
-            min-width: 90px;
-            width: 30%;
-            background-color: white;
-            color: black;
-            border-radius: 12px;
-            padding: 6px;
-        }
-        #usado{
-            min-width: 90px;
-            width: 30%;
-            background-color: white;
-            color: black;
-            border-radius: 12px;
-            padding: 6px;
-        }
-        #instalado{
-            font-size: 18px;
-        }
-        #instalados{
-            height: 45px;
-            width: 120px;
-            font-size: 24px;
-        }
-        #main{
-            width: 100%;
-            height: 350px;
-            margin: 0 auto;
-            background-color: white;
-        }
-        
-
-        @media (min-width: 900px) {
-            fieldset{
-                max-width: 600px;
-            }
-            .local{
-            top: 33px;
-            right: 30%;
-            }
-        }
-
-
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function(){
-            //readDay();
-
-            });
-        
-        let totalW = 0;
-        function readDay(){
-            let lat = document.getElementById("lat").value;
-            let lon = document.getElementById("lon").value;
-
-            if (!lat || !lon){
-                    console.log("Por Defecto: ");
-                    lat = 3.559809;
-                    lon = -76.575405;
-                    console.log(lat);
-                    console.log(lon);
-                }
-                else {
-                    console.log("Input: ");
-                    console.log(lat);
-                    console.log(lon);
-                }
-            const urlINI = 'https://api.open-meteo.com/v1/forecast?';
-            const urlA = 'latitude='+lat;
-            const urlB = 'longitude='+lon;
-            const urlC = 'current=temperature_2m,relative_humidity_2m';
-            const urlD = 'hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,shortwave_radiation,direct_radiation,diffuse_radiation';
-            const urlE = 'daily=temperature_2m_max,temperature_2m_min';
-            const urlEND = 'wind_speed_unit=ms&timezone=auto&forecast_days=1&models=best_match';
-            const urlAPI = urlINI +'&'+ urlA +'&'+ urlB +'&'+ urlC +'&'+ urlD +'&'+ urlE +'&'+ urlEND;
-            console.log(urlAPI);
-
-            fetch(urlAPI)
-            .then(response => response.json())
-            .then(data => {
-
-                let zonaHoraria = data.timezone;
-                let elevacion = data.elevation;
-                let latitud = data.latitude;
-                let longitud = data.longitude;
-
-                //Current
-                let temperatura = data.current.temperature_2m;
-                let humedad = data.current.relative_humidity_2m;
-            
-                //Hourly
-                let tiempo = data.hourly.time;
-                let radiacionCorta = data.hourly.shortwave_radiation;
-                let viento = data.hourly.wind_speed_10m;
-
-                let eficiencia = 0.2;
-
-                const radEfectiva = radiacionCorta.map( number => eficiencia * number);
-                const eEolica = viento.map( number => 0.4 * (number*number*number));
-                
-                let totalEolica = 0;
-                eEolica.forEach( num => {
-                    totalEolica += num;
-                });
-               
-                console.log("Radiacion Efectiva: ");
-                console.log(radEfectiva);
-
-                console.log(data);
-
-                console.log(data.latitude);
-                console.log(data.longitude);
-                console.log(zonaHoraria);
-                console.log(data.hourly.time[12]);
-
-                console.log(tiempo);
-                console.log(radiacionCorta);
-                console.log(viento);
-
-                const media = mean => {
-                    if (mean.length < 1){
-                        return;
-                    }
-                    return mean.reduce((prev, current) => prev + current) / mean.length;
-                };
-
-                let mediaViento = media(viento);
-                let maxViento = Math.max.apply(null,viento);
-
-                totalW = 0;
-                for (let i = 0; i < radEfectiva.length; i++){
-                    totalW += radEfectiva[i];
-                }
-                console.log("Total Energy: " + parseInt(totalW) + " Wh/m2");
-
-                let mediaWind = 0;
-                viento.forEach( num => {
-                    mediaWind += num;
-                });
-
-                let mViento = mediaWind/viento.length;
-
-                console.log("Radiation: " + data.hourly.shortwave_radiation[12] + " W/m2");
-                console.log("Wind: " + data.hourly.wind_speed_10m[12] + " m/s");
-                
-                console.log("Wind Media: " + mViento + " m/s");
-                console.log(maxViento);
-
-                document.getElementById("boton").innerHTML=data.daily.time[0];
-                document.getElementById("zonaHoraria").innerHTML=zonaHoraria;
-                document.getElementById("latitud").innerHTML=latitud;
-                document.getElementById("longitud").innerHTML=longitud;
-                document.getElementById("elevacion").innerHTML=elevacion;
-                document.getElementById("temperatura").innerHTML=temperatura;
-                document.getElementById("humedad").innerHTML=humedad;
-                document.getElementById("radiacion").innerHTML=parseInt(totalW);
-                document.getElementById("maxViento").innerHTML= maxViento;
-                document.getElementById("mediaViento").innerHTML= mediaViento.toFixed(2);
-                document.getElementById("energiaEolica").innerHTML= parseInt(totalEolica);
-                
-                const ctx = document.getElementById('solRadar');
-                const ctx2 = document.getElementById('solGen');
-                
-
-                myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: Object.keys(radiacionCorta),
-                        datasets: [
-                            {
-                            axis: 'x',
-                            label: 'Wh/m2',
-                            data: Object.values(radEfectiva),
-                            borderWidth: 1,
-                            fill: true,
-                            borderColor: 'rgb(23, 69, 3)',
-                            backgroundColor: 'rgb(230, 169, 3)',
-                            tension: 0.3,
-                            },
-
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            y: {beginAtZero: true}
-                        },
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Hourly Energy Generation',
-                                padding: {
-                                    top: 6,
-                                    bottom: 0
-                                }
-                            },
-                        }
-                    }
-                });
-                
-            });
-
-        }
-
-        function clearDay(){
-            myChart.clear();
-            myChart.destroy();
-            readDay();
-        }
-
-        function clima(){
-            document.getElementById("intro").style.display="none";
-            document.getElementById("carga").style.display="none";
-            document.getElementById("resume").style.display="none";
-            document.getElementById("clima").style.display="unset";
-            readDay();
-        }
-        function cargas(){
-            document.getElementById("intro").style.display="none";
-            document.getElementById("clima").style.display="none";
-            document.getElementById("resume").style.display="none";
-            document.getElementById("carga").style.display="unset";
-            calcular();
-        }
-        function resumen(){
-            document.getElementById("clima").style.display="none";
-            document.getElementById("carga").style.display="none";
-            document.getElementById("intro").style.display="none";
-            document.getElementById("resume").style.display="unset";
-            
-            
-            fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
-            .then(response => response.json())
-            .then(data => {
-                let incuTemperatura = data.feeds[1].field1;
-                let incuHumedad = data.feeds[1].field2;
-                let incuTime = data.feeds[1].created_at;
-
-                let incuTemp = parseFloat(incuTemperatura).toFixed(2);
-                let incuHum = parseFloat(incuHumedad).toFixed(2);
-
-                console.log("Temperature INCU (°C): ");
-                console.log(incuTemp);
-                console.log("Humidity INCU (%): ");
-                console.log(incuHum);
-
-                //document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+incuHum+" %"+" :HumINCU";
-                document.getElementById('incubadora').innerHTML = `
-                <h4>Incubator</h4>
-                <h4>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h4>
-                <h5>${incuTime}</h5>
-                `;
-            });
-
-                var potInstalada = document.getElementById("instalados").value;
-                if(!potInstalada){
-                    potInstalada = 0;
-                }
-                let areaInstalada = 0.28 * potInstalada/50;
-                let eGenerada = areaInstalada * totalW;
-
-            document.getElementById("balance").innerHTML = `
-                <h2>Daily Energy Balance</h2>
-                <div id="mostrar">
-                <div id="generado">
-                    <h3>Generated</h3>
-                    <h1>${parseInt(eGenerada)}</h1>
-                    <h3>Wh</h3>    
-                </div>
-                <div id="usado">
-                    <h3>Used</h3>
-                    <h1>${parseInt(totalWH)}</h1>
-                    <h3>Wh</h3>    
-                </div>
-                <!--<h3>Generated: ${parseInt(totalW)} Wh || ${parseInt(totalWH)} Wh :Used</h3>-->
-                </div>
-                `;
-                
-            }       
-        let totalWH = 0;
-
-        function calcular(){
-            totalWH = 0;
-            let meArray = [];
-            for (let i = 0; i < 10; i++){
-                var cantidad = document.getElementById("cant"+i).value;
-                if(!cantidad){
-                    cantidad = 0;
-                }
-                var vatios = document.getElementById("watt"+i).value;
-                if(!vatios){
-                    vatios = 0;
-                }
-                var horas = document.getElementById("hour"+i).value;
-                if(!horas){
-                    horas = 0;
-                }
-                let wattHora = parseFloat(cantidad)*parseFloat(vatios)*parseFloat(horas);
-                document.getElementById("wh"+i).innerHTML = wattHora; 
-                totalWH = totalWH + wattHora;
-                meArray.push(wattHora);
-                
-            }
-            
-            console.log(totalWH);
-            document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
-            loadChart(meArray);
     
-        }
-        function loadChart(tCargas){
-            // Initialize the echarts instance based on the prepared dom
-            var myChart = echarts.init(document.getElementById('main'));
-            
-            window.addEventListener('resize', function() {
-                myChart.resize();
-            });
-      
-            // Specify the configuration items and data for the chart
-            var option = {
-                color: [
-                    '#e6a903'
-                ],
-              title: {
-                text: ''
-              },
-              tooltip: {},
-              legend: {
-                data: ['Wh']
-              },
-              xAxis: {
-                data: ['TV', 'Laptop', 'Phone', 'Tablet', 'Light', 'WiFi', 'HiFi', 'CCTV', 'IoT', 'Other']
-              },
-              yAxis: {},
-              series: [
-                {
-                  name: 'Wh',
-                  type: 'bar',
-                  data: tCargas
-                }
-              ]
-            };
-      
-            // Display the chart using the configuration items and data just specified.
-            myChart.setOption(option);
-        }
-        function limpiar(){
-            totalWH = 0;
-            meArray = 0;
-            loadChart(meArray);
-
-            for (let i = 0; i < 10; i++){
-                document.getElementById("cant"+i).value = 0;
-                
-                document.getElementById("watt"+i).value = 0;
-                
-                document.getElementById("hour"+i).value = 0;
-                
-                document.getElementById("wh"+i).innerHTML = 0;
-            }
-
-            document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
-            console.log(totalWH);
-        }
-               
-        
-    </script>
 
 </head>
 <body>
@@ -574,8 +67,18 @@
                 <td>%</td>
             </tr>
             <tr>
-                <td>Daily PV Energy</td>
-                <td id="radiacion"></td>
+                <td>Daily PV Energy (Shortwave)</td>
+                <td id="totalShort"></td>
+                <td>Wh/m2</td>
+            </tr>
+            <tr>
+                <td>Daily PV Energy (Diffuse)</td>
+                <td id="totalDiffuse"></td>
+                <td>Wh/m2</td>
+            </tr>
+            <tr>
+                <td>Daily PV Energy (Direct)</td>
+                <td id="totalDirect"></td>
                 <td>Wh/m2</td>
             </tr>
             <tr>
@@ -596,9 +99,10 @@
         </tbody>
     </table>
     <!--<img src="home.jpg" alt="Loading ...">-->
-    <canvas id="solRadar"></canvas>
+    <!--<canvas id="solRadar"></canvas>-->
+    <div id="solRadar"></div>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
-    <h5>Powered by Open-Meteo</h5>
+    <h5>Powered by <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> and <a href="https://echarts.apache.org/en/index.html" target="_blank">Apache ECharts</a></h5>
     </div>
 
     <div id="carga">   
@@ -695,8 +199,8 @@
         <button id="limpiar" onclick="limpiar()">Clear All</button>
         <div id="paneles">
             <label id="instalado" for="instalado">Instaled Photovoltaic System (W): </label>
-            <input name="instalado" id="instalados" type="number" list="pvWatts">
-            <datalist id="pvWatts">
+            <!--<input name="instalado" id="instalados" type="number" list="pvWatts">-->
+            <select id="pvWatts" name="instalado">
                 <option value="50">50W</option>
                 <option value="100">100W</option>
                 <option value="150">150W</option>
@@ -717,23 +221,33 @@
                 <option value="900">900W</option>
                 <option value="950">950W</option>
                 <option value="1000">1000W</option>
-            </datalist>
+            </select>
+            <label id="tipo" for="tipo">Select Panel Type: </label>
+            <select id="tipoPanel" name="tipo">
+                <option value="policristalino">Policristalino</option>
+                <option value="monocristalino">Monocristalino</option>
+                <option value="">Other</option>
+            </select>
         </div>
         <!--<img src="home.jpg" alt="Loading ...">-->
         <!--<canvas id="solRadar"></canvas>-->
     </div>
+
     <div id="resume">
-        <legend id="incubadora">Resume</legend>
-        <img src="incu.png" alt="Loading ...">
+        <h2 id="resumen">Daily Energy Balance</h2>
+        <div id="gauge"></div>
         <div id="balance"></div>
+        <legend id="incubadora">INCUBATOR STATUS</legend>
+        <!--<img src="incu.png" alt="Loading ...">-->
     </div>
+
     <div class="nav">
         <button class="menu" id="potencial" onclick="clima()">Weather</button>
         <button class="menu" id="cargas" onclick="cargas()">Loads</button>
         <button class="menu" id="resumen" onclick="resumen()">Resume</button>
     </div>
+
     </fieldset>
-    
     
 </body>
 </html>

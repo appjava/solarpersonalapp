@@ -1,0 +1,210 @@
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            text-align: center;
+            width: 100%;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+
+        }
+        p{
+            text-align: left;
+            margin-left: 12px;
+        }
+        table{
+            background-color: rgb(230, 169, 3);
+            margin: 6px auto 0px auto;
+            width: 100%;
+            border-radius: 12px 12px 0px 0px;
+            padding: 6px 12px 12px 12px;
+            font-size: small;
+        }
+        thead {
+            background-color: rgb(230, 169, 3);
+            border-radius: 12px 12px 0px 0px;
+            color: white;
+            font-size: x-small;
+            text-transform: uppercase;
+        }
+        tbody{
+            background-color: white;
+            color: black;
+        }
+        td{
+            padding: 3px;
+            height: 24px;
+        }
+        th{
+            min-width: 33px;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+        
+        fieldset{
+            width: 90%;
+            min-width: 240px;
+            margin: 12px auto 0px auto;
+            border-radius: 12px 12px 12px 12px;
+            padding: 3px 9px 12px 9px;
+            height: auto;
+            text-align: center;
+        }
+        legend{
+            font-weight: bold;
+            padding-top: 9px;
+            margin: 0 auto;
+            font-size: 15px;
+        }
+        button{
+            width: 100%;
+            font-weight: bold;
+            font-size: 15px;
+            height: 45px;
+            border-radius: 0px 0px 12px 12px;
+            margin-bottom: 12px;
+            margin-top: 0px;
+            text-transform: uppercase;
+            background-color: #e6a903;
+            color: white;
+            cursor: pointer;
+        }
+        img{
+            border-radius: 12px;
+            width: 90%;
+            margin-top: 12px;
+        }
+        input{
+            text-align: center;
+            width: 60%;
+            height: 75%;
+            background-color: white;
+            border-radius: 6px;
+            margin: 3px;
+            font-size: small;
+        }
+        label{
+            font-weight: bold;
+        }
+        
+        #solRadar{
+            max-width: 100%;
+            height: 240px;
+            border: 1px solid white;
+            background-color: white;
+            font-size: 12px;
+        }
+        .local{
+            width: 40px;
+            height: 40px;
+            font-size: x-small;
+            position: absolute;
+            top: 33px;
+            right: 5%;
+            background: white;
+            color: rgb(230, 169, 3);
+            border-radius: 20px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        #clima{
+            display: none;
+        }
+        #carga{
+            display: none;
+        }
+        #resume{
+            display: none;
+        }
+        .nav{
+            width: 90%;
+            margin: 12px auto 0px auto;
+        }
+        .menu{
+            width: 30%;
+            margin-bottom: 0px;
+            border-radius: 12px;
+            font-size: small;
+        }
+        td>input{
+            margin: 0;
+            width: 90%;
+            font-size: 12px
+        }
+        #mostrar{
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 12px auto 24px auto;
+
+        }
+        #generado{
+            min-width: 90px;
+            width: 30%;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            padding: 6px;
+        }
+        #usado{
+            min-width: 90px;
+            width: 30%;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            padding: 6px;
+        }
+        #instalado{
+            font-size: 18px;
+        }
+        #instalados{
+            height: 45px;
+            width: 120px;
+            font-size: 24px;
+        }
+        #main{
+            width: 100%;
+            height: 350px;
+            margin: 0 auto;
+            background-color: white;
+        }
+        #solRadar{
+            width: 100%;
+            height: 350px;
+            margin: 0 auto;
+            background-color: white;
+        }
+        #totalShort{
+            background-color: white;
+            color: #e6a903;
+            font-weight: bold;
+        }
+        #totalDiffuse{
+            background-color: white;
+            color: green;
+            font-weight: bold;
+        }
+        #totalDirect{
+            background-color: white;
+            color: hsl(240, 100%, 50%);
+            font-weight: bold;
+        }
+        #gauge{
+            width: 100%;
+            height: 350px;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        @media (min-width: 900px) {
+            fieldset{
+                max-width: 600px;
+            }
+            .local{
+            top: 33px;
+            right: 30%;
+            }
+        }
