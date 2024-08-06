@@ -180,7 +180,7 @@
                 */
                 function chartClima(){
                     var myChart = echarts.init(document.getElementById('solRadar'));
-                    
+                    myChart.resize();
                     window.addEventListener('resize', function() {
                         myChart.resize();
                     });
@@ -370,7 +370,7 @@
                 chartResume();
                 function chartResume(){
                     var myChart = echarts.init(document.getElementById('gauge'));
-                    
+                    myChart.resize();
                     window.addEventListener('resize', function() {
                         myChart.resize();
                     });
@@ -535,7 +535,7 @@
         function loadChart(tCargas){
             // Initialize the echarts instance based on the prepared dom
             var myChart = echarts.init(document.getElementById('main'));
-            
+            myChart.resize();
             window.addEventListener('resize', function() {
                 myChart.resize();
             });
