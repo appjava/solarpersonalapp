@@ -17,7 +17,8 @@
 <body>
     <fieldset>
     <div id="intro">
-        <legend id="titulo">Welcome to Solar Personal App</legend>
+        <legend id="titulo">Welcome</legend>
+        <img src="solarApp.jpeg" alt="Loading ...">
         <img src="home.jpg" alt="Loading ...">
         
     </div>
@@ -102,7 +103,7 @@
     <!--<canvas id="solRadar"></canvas>-->
     <div id="solRadar"></div>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
-    <h5>Powered by <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> and <a href="https://echarts.apache.org/en/index.html" target="_blank">Apache ECharts</a></h5>
+    <h4>Powered by <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> and <a href="https://echarts.apache.org/en/index.html" target="_blank">Apache ECharts</a></h4>
     </div>
 
     <div id="carga">   
@@ -197,6 +198,7 @@
         
 
         <button id="limpiar" onclick="limpiar()">Clear All</button>
+        
         <div id="paneles">
             <label id="instalado" for="instalado">Instaled Photovoltaic System (W): </label>
             <!--<input name="instalado" id="instalados" type="number" list="pvWatts">-->
@@ -222,7 +224,7 @@
                 <option value="950">950W</option>
                 <option value="1000">1000W</option>
             </select>
-            <label id="tipo" for="tipo">Select Panel Type: </label>
+            <label id="tipo" for="tipo">Panel Type: </label>
             <select id="tipoPanel" name="tipo">
                 <option value="policristalino">Policristalino</option>
                 <option value="monocristalino">Monocristalino</option>
@@ -234,7 +236,7 @@
     </div>
 
     <div id="resume">
-        <h2 id="resumen">Daily Energy Balance</h2>
+        <legend id="resumen">Daily Energy Balance</legend>
         <div id="gauge"></div>
         <div id="balance"></div>
         <legend id="incubadora">INCUBATOR STATUS</legend>
@@ -242,9 +244,9 @@
     </div>
 
     <div class="nav">
-        <button class="menu" id="potencial" onclick="clima()">Weather</button>
+        <button class="menu" id="potencial" onclick="clima()">Potential</button>
         <button class="menu" id="cargas" onclick="cargas()">Loads</button>
-        <button class="menu" id="resumen" onclick="resumen()">Resume</button>
+        <button class="menu" id="resumen" onclick="resumen()">Summary</button>
     </div>
 
     </fieldset>

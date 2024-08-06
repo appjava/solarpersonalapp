@@ -188,7 +188,7 @@
                     // Specify the configuration items and data for the chart
                     var option = {
                         title: {
-                          text: "Wh/m2"
+                          text: ""
                         },
                         tooltip: {
                           trigger: 'axis',
@@ -469,15 +469,15 @@
                       option = {
                         title: [
                           {
-                            text: 'Daily WH Balance'
+                            text: ''
                           }
                         ],
                         polar: {
-                          radius: [30, '80%']
+                          radius: [30, '75%']
                         },
                         angleAxis: {
-                          max: 4000,
-                          startAngle: 75
+                          max: 4150,
+                          startAngle: 90
                         },
                         radiusAxis: {
                           type: 'category',
@@ -487,11 +487,12 @@
                         series: {
                           type: 'bar',
                           data: [totalWH, eGenerada, totalShort],
+                          
                           coordinateSystem: 'polar',
                           label: {
                             show: true,
-                            position: 'middle',
-                            formatter: '{b}: {c}'
+                            position: 'start',
+                            formatter: '{b}',
                           }
                         }
                       };
