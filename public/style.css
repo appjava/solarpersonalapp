@@ -3,6 +3,9 @@
             margin: 0;
             padding: 0;
         }
+        a{
+            text-decoration: none;
+        }
         body{
             text-align: center;
             width: 100%;
