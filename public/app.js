@@ -4,6 +4,7 @@
         let totalDirect = 0;
         let totalDiffuse = 0;
         let potInstalada = 0;
+        let inverter = 0;
 
         function readDay(){
             let lat = document.getElementById("lat").value;
@@ -385,6 +386,19 @@
                 <h2>${potInstalada}</h2>
                 <h3>Watts</h3>
                 `;
+                document.getElementById("inversor").innerHTML = `
+                <div id="inverter">
+                <h3>DC/AC Inverter Up</h3>
+                <h2>${inverter*1.5}</h2>
+                <h3>Watts</h3>
+                </div>
+                <div id="inverter">
+                <h3>12VDC Battery Up</h3>
+                <h2>${(eGenerada/13)*1.3}</h2>
+                <h3>AH</h3>
+                </div>
+
+                `;
                 chartResume();
                 function chartResume(){
                     var myChart = echarts.init(document.getElementById('gauge'));
@@ -524,7 +538,11 @@
 
         function calcular(){
             totalWH = 0;
+            inverter = 0;
             let meArray = [];
+            let inversor = [];
+            let prendido = 0;
+
             for (let i = 0; i < 10; i++){
                 var cantidad = document.getElementById("cant"+i).value;
                 if(!cantidad){
@@ -535,20 +553,28 @@
                     vatios = 0;
                 }
                 var horas = document.getElementById("hour"+i).value;
-                if(!horas){
+                if(!horas || horas == 0){
                     horas = 0;
+                    prendido = 0;
+                }else{
+                    prendido = 1;
                 }
                 let wattHora = parseFloat(cantidad)*parseFloat(vatios)*parseFloat(horas);
                 document.getElementById("wh"+i).innerHTML = wattHora; 
                 totalWH = totalWH + wattHora;
                 meArray.push(wattHora);
-                
+
+                let sumInvert = parseFloat(cantidad)*parseFloat(vatios)*prendido;
+                inversor.push(sumInvert);
             }
             
             //console.log(totalWH);
             document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
             loadChart(meArray);
-    
+            
+            inversor.forEach( num => {
+                inverter += num;
+            });
         }
 
         function loadChart(tCargas){
