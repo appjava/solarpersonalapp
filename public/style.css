@@ -120,18 +120,26 @@
         #resume{
             display: none;
         }
+        
+        #potencial{
+            display: none;
+        }
+        #sumario{
+            display: none;
+        }
+        #cargas{
+            display: none;
+        }
+        
         .nav{
-            width: 90%;
-            margin: 12px auto 0px auto;
             display: flex;
-            justify-content: space-around;
-            gap: 3px;
+            border: none;
         }
         .menu{
-            min-width: 90px;
+            min-width: 120px;
             width: 30%;
-            margin-top: 30px;
-            margin-bottom: 0px;
+            height: 60px;
+            margin: 30px auto;
             border-radius: 12px;
             font-size: small;
         }
@@ -147,21 +155,17 @@
             margin: 12px auto 24px auto;
 
         }
-        #generado{
-            min-width: 75px;
+        #generado, #usado{
+            min-width: 70px;
             width: 25%;
             background-color: white;
             color: black;
             border-radius: 12px;
-            padding: 6px;
-        }
-        #usado{
-            min-width: 75px;
-            width: 25%;
-            background-color: white;
-            color: black;
-            border-radius: 12px;
-            padding: 6px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+            height: 70px;
+            justify-content: space-between;
         }
         #instalado, #tipo{
             font-size: 18px;
@@ -199,6 +203,10 @@
             color: hsl(240, 100%, 50%);
             font-weight: bold;
         }
+        #balance{
+            width: 90%;
+            margin: 0 auto;
+        }
         #gauge{
             min-width: 200px;
             width: 95%;
@@ -217,6 +225,20 @@
         #paneles{
             display: flex;
             flex-direction: column;
+        }
+        
+        #panelesInstalados, #kilosMes{
+            background-color: white;
+            color: black;
+            max-width: 450px;
+            width: 90%;
+            height: 60px;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         @media (min-width: 900px) {

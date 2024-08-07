@@ -17,10 +17,10 @@
 <body>
     <fieldset>
     <div id="intro">
-        <legend id="titulo">Welcome</legend>
+        <!--<legend id="titulo">Welcome</legend>-->
         <img src="solarApp.jpeg" alt="Loading ...">
         <img src="home.jpg" alt="Loading ...">
-        
+        <button class="menu" id="" onclick="clima()">START</button>
     </div>
 
     <div id="clima">   
@@ -196,7 +196,6 @@
 
         <div id="main"></div>
         
-
         <button id="limpiar" onclick="limpiar()">Clear All</button>
         
         <div id="paneles">
@@ -239,14 +238,16 @@
         <legend id="resumen">Daily Energy Balance</legend>
         <div id="gauge"></div>
         <div id="balance"></div>
+        <div id="kilosMes"></div>
+        <div id="panelesInstalados"></div>
         <legend id="incubadora">INCUBATOR STATUS</legend>
         <!--<img src="incu.png" alt="Loading ...">-->
     </div>
 
-    <div class="nav">
+    <div class="nav" id="nav">
         <button class="menu" id="potencial" onclick="clima()">Potential</button>
         <button class="menu" id="cargas" onclick="cargas()">Loads</button>
-        <button class="menu" id="resumen" onclick="resumen()">Summary</button>
+        <button class="menu" id="sumario" onclick="resumen()">Summary</button>
     </div>
 
     </fieldset>

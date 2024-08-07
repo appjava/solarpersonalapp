@@ -1,13 +1,9 @@
 
-        document.addEventListener('DOMContentLoaded', function(){
-            //readDay();
-
-            });
-        
         let totalW = 0;
         let totalShort = 0;
         let totalDirect = 0;
         let totalDiffuse = 0;
+        let potInstalada = 0;
 
         function readDay(){
             let lat = document.getElementById("lat").value;
@@ -286,6 +282,11 @@
             document.getElementById("carga").style.display="none";
             document.getElementById("resume").style.display="none";
             document.getElementById("clima").style.display="unset";
+            document.getElementById("nav").style.display="unset";
+
+            document.getElementById("cargas").style.display="unset";
+            document.getElementById("potencial").style.display="none";
+            document.getElementById("sumario").style.display="unset";
             readDay();
         }
         function cargas(){
@@ -293,6 +294,10 @@
             document.getElementById("clima").style.display="none";
             document.getElementById("resume").style.display="none";
             document.getElementById("carga").style.display="unset";
+
+            document.getElementById("potencial").style.display="unset";
+            document.getElementById("cargas").style.display="none";
+            document.getElementById("sumario").style.display="unset";
             calcular();
         }
         function resumen(){
@@ -300,7 +305,10 @@
             document.getElementById("carga").style.display="none";
             document.getElementById("intro").style.display="none";
             document.getElementById("resume").style.display="unset";
-            
+
+            document.getElementById("potencial").style.display="unset";
+            document.getElementById("cargas").style.display="unset";
+            document.getElementById("sumario").style.display="none";
             
             fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
             .then(response => response.json())
@@ -325,7 +333,7 @@
                 `;
             });
 
-                var potInstalada = document.getElementById("pvWatts").value;
+                potInstalada = document.getElementById("pvWatts").value;
                 if(!potInstalada){
                     potInstalada = 0;
                 }
@@ -354,18 +362,28 @@
                     <h1>${parseInt(totalShort)}</h1>
                     <h3>Wh</h3>    
                 </div>
-                <div id="generado">
-                    <h3>Generated</h3>
-                    <h1>${parseInt(eGenerada)}</h1>
-                    <h3>Wh</h3>    
-                </div>
                 <div id="usado">
                     <h3>Used</h3>
                     <h1>${parseInt(totalWH)}</h1>
                     <h3>Wh</h3>    
                 </div>
+                <div id="generado">
+                    <h3>Generated</h3>
+                    <h1>${parseInt(eGenerada)}</h1>
+                    <h3>Wh</h3>    
+                </div>
                 <!--<h3>Generated: ${parseInt(totalW)} Wh || ${parseInt(totalWH)} Wh :Used</h3>-->
                 </div>
+                `;
+                document.getElementById("kilosMes").innerHTML = `
+                <h3>Monthly Energy Generated</h3>
+                <h2>${(eGenerada*30/1000).toFixed(1)}</h2>
+                <h3>kWh</h3>
+                `;
+                document.getElementById("panelesInstalados").innerHTML = `
+                <h3>Installed Photovolltaic System</h3>
+                <h2>${potInstalada}</h2>
+                <h3>Watts</h3>
                 `;
                 chartResume();
                 function chartResume(){
