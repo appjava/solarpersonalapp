@@ -1,5 +1,6 @@
 
         let totalW = 0;
+        let totalWH = 0;
         let totalShort = 0;
         let totalDirect = 0;
         let totalDiffuse = 0;
@@ -181,7 +182,7 @@
                     window.addEventListener('resize', function() {
                         myChart.resize();
                     });
-                    let titulo = "Lat: " + lat.toFixed(3) + " || " + "Lon: " + lon.toFixed(3);
+                    
                     // Specify the configuration items and data for the chart
                     var option = {
                         title: {
@@ -271,13 +272,11 @@
             });
 
         }
-
         function clearDay(){
             //myChart.clear();
             //myChart.destroy();
             readDay();
         }
-
         function clima(){
             document.getElementById("intro").style.display="none";
             document.getElementById("carga").style.display="none";
@@ -389,115 +388,25 @@
                 document.getElementById("inversor").innerHTML = `
                 <div id="inverter">
                 <h3>DC/AC Inverter Up</h3>
-                <h2>${inverter*1.5}</h2>
+                <h2>${parseInt(inverter*1.5)}</h2>
                 <h3>Watts</h3>
                 </div>
                 <div id="inverter">
                 <h3>12VDC Battery Up</h3>
-                <h2>${(eGenerada/13)*1.3}</h2>
+                <h2>${parseInt((eGenerada/13)*1.3)}</h2>
                 <h3>AH</h3>
                 </div>
 
                 `;
+
                 chartResume();
+
                 function chartResume(){
                     var myChart = echarts.init(document.getElementById('gauge'));
                     myChart.resize();
                     window.addEventListener('resize', function() {
                         myChart.resize();
                     });
-
-                    /*
-                    // Specify the configuration items and data for the chart
-                    const gaugeData = [
-                        {
-                          value: totalShort/100,
-                          name: 'Potential',
-                          title: {
-                            offsetCenter: ['0%', '-50%']
-                          },
-                          detail: {
-                            valueAnimation: true,
-                            offsetCenter: ['0%', '-30%']
-                          }
-                        },
-                        {
-                          value: eGenerada/100,
-                          name: 'Generated',
-                          title: {
-                            offsetCenter: ['0%', '-10%']
-                          },
-                          detail: {
-                            valueAnimation: true,
-                            offsetCenter: ['0%', '10%']
-                          }
-                        },
-                        {
-                          value: totalWH/100,
-                          name: 'Used',
-                          title: {
-                            offsetCenter: ['0%', '30%']
-                          },
-                          detail: {
-                            valueAnimation: true,
-                            offsetCenter: ['0%', '50%']
-                          }
-                        }
-                      ];
-                    let option = {
-                        series: [
-                          {
-                            type: 'gauge',
-                            startAngle: 90,
-                            endAngle: -270,
-                            pointer: {
-                              show: false
-                            },
-                            progress: {
-                              show: true,
-                              overlap: false,
-                              roundCap: true,
-                              clip: false,
-                              itemStyle: {
-                                borderWidth: 1,
-                                borderColor: '#464646'
-                              }
-                            },
-                            axisLine: {
-                              lineStyle: {
-                                width: 50
-                              }
-                            },
-                            splitLine: {
-                              show: false,
-                              distance: 0,
-                              length: 10
-                            },
-                            axisTick: {
-                              show: false
-                            },
-                            axisLabel: {
-                              show: false,
-                              distance: 50
-                            },
-                            data: gaugeData,
-                            title: {
-                              fontSize: 14
-                            },
-                            detail: {
-                              width: 50,
-                              height: 14,
-                              fontSize: 14,
-                              color: 'inherit',
-                              borderColor: 'inherit',
-                              borderRadius: 20,
-                              borderWidth: 1,
-                              formatter: '{value}'
-                            }
-                          }
-                        ]
-                      };
-                    */ 
                       option = {
                         title: [
                           {
@@ -508,7 +417,7 @@
                           radius: [30, '75%']
                         },
                         angleAxis: {
-                          max: 4150,
+                          max: totalShort*1.15,
                           startAngle: 90
                         },
                         radiusAxis: {
@@ -532,10 +441,7 @@
                     // Display the chart using the configuration items and data just specified.
                     myChart.setOption(option);
                 }
-
-            }       
-        let totalWH = 0;
-
+        }
         function calcular(){
             totalWH = 0;
             inverter = 0;
@@ -576,7 +482,6 @@
                 inverter += num;
             });
         }
-
         function loadChart(tCargas){
             // Initialize the echarts instance based on the prepared dom
             var myChart = echarts.init(document.getElementById('main'));
