@@ -327,7 +327,7 @@
                 document.getElementById("inversor").innerHTML = `
                 <div id="inverter">
                 <h3>DC/AC Inverter Up</h3>
-                <h2>${parseInt(inverter*1.5)}</h2>
+                <h2>${parseInt(inverter*2)}</h2>
                 <h3>Watts</h3>
                 </div>
                 <div id="inverter">
@@ -458,7 +458,7 @@
                       name: 'Avg Generated Wh',
                       type: 'line',
                       smooth: true,
-                      color: 'blue',
+                      color: '#e6a903',
                       emphasis: {
                         focus: 'series'
                       },
