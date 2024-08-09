@@ -278,13 +278,13 @@
                 var typePanel = document.getElementById("tipoPanel").value;
 
                 if(typePanel==="policristalino"){
-                    var effiPanel = 0.15;
-                }
-                else if(typePanel==="monocristalino"){
                     var effiPanel = 0.20;
                 }
+                else if(typePanel==="monocristalino"){
+                    var effiPanel = 0.25;
+                }
                 else{
-                    var effiPanel = 0.12;
+                    var effiPanel = 0.15;
                 }
                 
                 horaGenerada = radiacionCorta.map( number => parseInt(number * areaInstalada * effiPanel));
@@ -336,7 +336,7 @@
                 let searchUrlInverter1 = "https://www.amazon.com/s?k="+searchInverter;
                 let searchUrlInverter2 = "https://www.ebay.com/sch/"+searchInverter;
 
-                let nominalBattery = parseInt((eGenerada/13)*1.3);
+                let nominalBattery = parseInt((eGenerada/13)*1.5);
                 let searchBattery = "battery+12+v+" + nominalBattery + "+ah";
                 let searchUrlBattery1 = "https://www.amazon.com/s?k="+searchBattery;
                 let searchUrlBattery2 = "https://www.ebay.com/sch/"+searchBattery;
