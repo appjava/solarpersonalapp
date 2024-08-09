@@ -314,26 +314,44 @@
                 <h2>${(eGenerada*30/1000).toFixed(1)}</h2>
                 <h3>kWh</h3>
                 `;
+
+                let nominalPanel = potInstalada;
+                let searchPanel = "solar+panel+12+v+" + nominalPanel + "+watt";
+                let searchUrlPanel1 = "https://www.amazon.com/s?k="+searchPanel;
+                let searchUrlPanel2 = "https://www.ebay.com/sch/"+searchPanel;
+
                 document.getElementById("panelesInstalados").innerHTML = `
                 <h3>Installed Photovolltaic System</h3>
-                <h2>${potInstalada}</h2>
-                <h3>Watts</h3>
+                <a href="${searchUrlPanel1}" target="_blank"><h2>${nominalPanel}</h2></a>
+                <a href="${searchUrlPanel2}" target="_blank"><h3>Watts</h3></a>
                 `;
                 document.getElementById("cargaSimultanea").innerHTML = `
                 <h3>Simultaneous Load</h3>
                 <h2>${inverter}</h2>
                 <h3>Watts</h3>
                 `;
+                
+                let nominalInverter = parseInt(inverter*2);
+                let searchInverter = "inverter+12+v+" + nominalInverter + "+watt";
+                let searchUrlInverter1 = "https://www.amazon.com/s?k="+searchInverter;
+                let searchUrlInverter2 = "https://www.ebay.com/sch/"+searchInverter;
+
+                let nominalBattery = parseInt((eGenerada/13)*1.3);
+                let searchBattery = "battery+12+v+" + nominalBattery + "+ah";
+                let searchUrlBattery1 = "https://www.amazon.com/s?k="+searchBattery;
+                let searchUrlBattery2 = "https://www.ebay.com/sch/"+searchBattery;
+                
+
                 document.getElementById("inversor").innerHTML = `
                 <div id="inverter">
                 <h3>DC/AC Inverter Up</h3>
-                <h2>${parseInt(inverter*2)}</h2>
-                <h3>Watts</h3>
+                <a href="${searchUrlInverter1}" target="_blank"><h2>${nominalInverter}</h2></a>
+                <a href="${searchUrlInverter2}" target="_blank"><h3>Watts</h3></a>
                 </div>
                 <div id="inverter">
                 <h3>12VDC Battery Up</h3>
-                <h2>${parseInt((eGenerada/13)*1.3)}</h2>
-                <h3>AH</h3>
+                <a href="${searchUrlBattery1}" target="_blank"><h2>${nominalBattery}</h2></a>
+                <a href="${searchUrlBattery2}" target="_blank"><h3>AH</h3></a>
                 </div>
                 `;
 
