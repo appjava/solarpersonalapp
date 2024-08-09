@@ -418,7 +418,7 @@
                     }
                   },
                   legend: {
-                    data: ['Generated', 'Load']
+                    data: ['Hourly Watts Generated', 'Avg Generated Wh', 'Avg Used Wh']
                   },
                   toolbox: {
                     feature: {
@@ -455,7 +455,7 @@
                       data: horaGenerada
                     },
                     {
-                      name: 'Avg Generated',
+                      name: 'Avg Generated Wh',
                       type: 'line',
                       smooth: true,
                       color: 'blue',
@@ -465,7 +465,7 @@
                       data: mediaGenerada
                     },
                     {
-                      name: 'Avg Used',
+                      name: 'Avg Used Wh',
                       type: 'line',
                       smooth: true,
                       color: 'red',
