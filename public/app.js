@@ -1,11 +1,22 @@
 
+        let radiacionCorta = [];
+        let radiacionDirecta = [];
+        let radiacionDifusa = [];
+        let tiempo = [];
+
+        let eEolica = [];
+
         let totalW = 0;
         let totalWH = 0;
+
         let totalShort = 0;
         let totalDirect = 0;
         let totalDiffuse = 0;
+
         let potInstalada = 0;
         let inverter = 0;
+
+        let horaGenerada = [];
 
         function readDay(){
             let lat = document.getElementById("lat").value;
@@ -48,36 +59,19 @@
                 let humedad = data.current.relative_humidity_2m;
                 
                 //Hourly
-                let tiempo = data.hourly.time;
-                let radiacionCorta = data.hourly.shortwave_radiation;
-                let radiacionDirecta = data.hourly.direct_radiation;
-                let radiacionDifusa = data.hourly.diffuse_radiation;
+                tiempo = data.hourly.time;
+                radiacionCorta = data.hourly.shortwave_radiation;
+                radiacionDirecta = data.hourly.direct_radiation;
+                radiacionDifusa = data.hourly.diffuse_radiation;
 
                 let viento = data.hourly.wind_speed_10m;
 
-                let eficiencia = 1;
-
-                const radEfectiva = radiacionCorta.map( number => eficiencia * number);
-                const eEolica = viento.map( number => 0.4 * (number*number*number));
+                eEolica = viento.map( number => 0.4 * (number*number*number));
                 
                 let totalEolica = 0;
                 eEolica.forEach( num => {
                     totalEolica += num;
                 });
-               
-                //console.log("Radiacion Efectiva: ");
-                //console.log(radEfectiva);
-
-                //console.log(data);
-
-                //console.log(data.latitude);
-                //console.log(data.longitude);
-                //console.log(zonaHoraria);
-                //console.log(data.hourly.time[12]);
-
-                //console.log(tiempo);
-                //console.log(radiacionCorta);
-                //console.log(viento);
 
                 const media = mean => {
                     if (mean.length < 1){
@@ -89,10 +83,6 @@
                 let mediaViento = media(viento);
                 let maxViento = Math.max.apply(null,viento);
 
-                totalW = 0;
-                for (let i = 0; i < radEfectiva.length; i++){
-                    totalW += radEfectiva[i];
-                }
                 totalShort = 0;
                 for (let i = 0; i < radiacionCorta.length; i++){
                     totalShort += radiacionCorta[i];
@@ -106,21 +96,12 @@
                     totalDiffuse += radiacionDifusa[i];
                 }
                 
-
-                //console.log("Total Energy: " + parseInt(totalW) + " Wh/m2");
-
                 let mediaWind = 0;
                 viento.forEach( num => {
                     mediaWind += num;
                 });
 
                 let mViento = mediaWind/viento.length;
-
-                //console.log("Radiation: " + data.hourly.shortwave_radiation[12] + " W/m2");
-                //console.log("Wind: " + data.hourly.wind_speed_10m[12] + " m/s");
-                
-                //console.log("Wind Media: " + mViento + " m/s");
-                //console.log(maxViento);
 
                 document.getElementById("boton").innerHTML=data.daily.time[0];
                 document.getElementById("zonaHoraria").innerHTML=zonaHoraria;
@@ -138,44 +119,8 @@
                 
                 const ctx = document.getElementById('solRadar');
                 const ctx2 = document.getElementById('solGen');
-                
-                chartClima();
-                /*
-                myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: Object.keys(radiacionCorta),
-                        datasets: [
-                            {
-                            axis: 'x',
-                            label: 'Wh/m2',
-                            data: Object.values(radEfectiva),
-                            borderWidth: 1,
-                            fill: false,
-                            borderColor: 'rgb(23, 69, 3)',
-                            backgroundColor: 'rgb(230, 169, 3)',
-                            tension: 0.3,
-                            },
 
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            y: {beginAtZero: true}
-                        },
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Hourly Energy Generation',
-                                padding: {
-                                    top: 6,
-                                    bottom: 0
-                                }
-                            },
-                        }
-                    }
-                });
-                */
+                chartClima();
                 function chartClima(){
                     var myChart = echarts.init(document.getElementById('solRadar'));
                     myChart.resize();
@@ -202,7 +147,6 @@
                         },
                         toolbox: {
                           feature: {
-                            saveAsImage: {}
                           }
                         },
                         grid: {
@@ -215,7 +159,7 @@
                           {
                             type: 'category',
                             boundaryGap: false,
-                            data: Object.keys(radiacionCorta)
+                            data: Object.keys(tiempo)
                           }
                         ],
                         yAxis: [
@@ -230,7 +174,6 @@
                             smooth: true,
                             color: '#e6a903',
                             areaStyle: {
-                                
                             },
                             emphasis: {
                               focus: 'series'
@@ -243,7 +186,6 @@
                             smooth: true,
                             color: 'blue',
                             areaStyle: {
-                                
                             },
                             emphasis: {
                               focus: 'series'
@@ -255,8 +197,7 @@
                             type: 'line',
                             smooth: true,
                             color: 'green',
-                            areaStyle: {
-                                
+                            areaStyle: {  
                             },
                             emphasis: {
                               focus: 'series'
@@ -320,12 +261,6 @@
                 let incuTemp = parseFloat(incuTemperatura).toFixed(2);
                 let incuHum = parseFloat(incuHumedad).toFixed(2);
 
-                //console.log("Temperature INCU (°C): ");
-                //console.log(incuTemp);
-                //console.log("Humidity INCU (%): ");
-                //console.log(incuHum);
-
-                //document.getElementById('titulo').innerHTML = "TempINCU: "+incuTemp+" °C"+" | "+incuHum+" %"+" :HumINCU";
                 document.getElementById('incubadora').innerHTML = `
                 <h4>Incubator</h4>
                 <h4>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h4>
@@ -351,29 +286,28 @@
                 else{
                     var effiPanel = 0.12;
                 }
-
-                let eGenerada = parseInt(areaInstalada * effiPanel * totalShort);
-
-            document.getElementById("balance").innerHTML = `
                 
-                <div id="mostrar">
-                <div id="generado">
-                    <h3>Potential</h3>
-                    <h1>${parseInt(totalShort)}</h1>
-                    <h3>Wh</h3>    
-                </div>
-                <div id="usado">
-                    <h3>Used</h3>
-                    <h1>${parseInt(totalWH)}</h1>
-                    <h3>Wh</h3>    
-                </div>
-                <div id="generado">
-                    <h3>Generated</h3>
-                    <h1>${parseInt(eGenerada)}</h1>
-                    <h3>Wh</h3>    
-                </div>
-                <!--<h3>Generated: ${parseInt(totalW)} Wh || ${parseInt(totalWH)} Wh :Used</h3>-->
-                </div>
+                horaGenerada = radiacionCorta.map( number => parseInt(number * areaInstalada * effiPanel));
+                
+                totalW = totalShort;
+                let eGenerada = parseInt(areaInstalada * effiPanel * totalW);
+
+                document.getElementById("balance").innerHTML = `
+                  <div id="generado">
+                      <h3>Potential</h3>
+                      <h1>${parseInt(totalW)}</h1>
+                      <h3>Wh</h3>    
+                  </div>
+                  <div id="usado">
+                      <h3>Used</h3>
+                      <h1>${parseInt(totalWH)}</h1>
+                      <h3>Wh</h3>    
+                  </div>
+                  <div id="generado">
+                      <h3>Generated</h3>
+                      <h1>${parseInt(eGenerada)}</h1>
+                      <h3>Wh</h3>    
+                  </div>
                 `;
                 document.getElementById("kilosMes").innerHTML = `
                 <h3>Monthly Energy Generated</h3>
@@ -383,6 +317,11 @@
                 document.getElementById("panelesInstalados").innerHTML = `
                 <h3>Installed Photovolltaic System</h3>
                 <h2>${potInstalada}</h2>
+                <h3>Watts</h3>
+                `;
+                document.getElementById("cargaSimultanea").innerHTML = `
+                <h3>Simultaneous Load</h3>
+                <h2>${inverter}</h2>
                 <h3>Watts</h3>
                 `;
                 document.getElementById("inversor").innerHTML = `
@@ -396,16 +335,14 @@
                 <h2>${parseInt((eGenerada/13)*1.3)}</h2>
                 <h3>AH</h3>
                 </div>
-
                 `;
 
                 chartResume();
-
                 function chartResume(){
-                    var myChart = echarts.init(document.getElementById('gauge'));
-                    myChart.resize();
+                    var myBalance = echarts.init(document.getElementById('gauge'));
+                    myBalance.resize();
                     window.addEventListener('resize', function() {
-                        myChart.resize();
+                        myBalance.resize();
                     });
                       option = {
                         title: [
@@ -439,8 +376,110 @@
                       };
               
                     // Display the chart using the configuration items and data just specified.
-                    myChart.setOption(option);
+                    myBalance.setOption(option);
                 }
+
+                let loadSimultanea = [];
+                for (let i = 0; i < tiempo.length; i++){
+                  loadSimultanea.push(inverter);
+                }
+
+                let mediaGenerada = [];
+                for (let i = 0; i < tiempo.length; i++){
+                  mediaGenerada.push(parseInt(eGenerada/tiempo.length));
+                }
+
+                let mediaUsada = [];
+                for (let i = 0; i < tiempo.length; i++){
+                  mediaUsada.push(parseInt(totalWH/tiempo.length));
+                }
+
+                chartHoraGenerada();
+                function chartHoraGenerada(){
+
+                  var myGenerada = echarts.init(document.getElementById('horaGenerada'));
+                  myGenerada.resize();
+                  window.addEventListener('resize', function() {
+                      myGenerada.resize();
+                  });
+                  
+                  // Specify the configuration items and data for the chart
+                var option = {
+                  title: {
+                    text: ""
+                  },
+                  tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                      type: 'cross',
+                      label: {
+                        backgroundColor: '#6a7985'
+                      }
+                    }
+                  },
+                  legend: {
+                    data: ['Generated', 'Load']
+                  },
+                  toolbox: {
+                    feature: {
+                      
+                    }
+                  },
+                  grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                  },
+                  xAxis: [
+                    {
+                      type: 'category',
+                      boundaryGap: false,
+                      data: Object.keys(tiempo)
+                    }
+                  ],
+                  yAxis: [
+                    {
+                      type: 'value'
+                    }
+                  ],
+                  series: [
+                    {
+                      name: 'Hourly Watts Generated',
+                      type: 'bar',
+                      smooth: true,
+                      color: 'green',
+                      emphasis: {
+                        focus: 'series'
+                      },
+                      data: horaGenerada
+                    },
+                    {
+                      name: 'Avg Generated',
+                      type: 'line',
+                      smooth: true,
+                      color: 'blue',
+                      emphasis: {
+                        focus: 'series'
+                      },
+                      data: mediaGenerada
+                    },
+                    {
+                      name: 'Avg Used',
+                      type: 'line',
+                      smooth: true,
+                      color: 'red',
+                      emphasis: {
+                        focus: 'series'
+                      },
+                      data: mediaUsada
+                    }
+                  ]
+                };
+            
+                  // Display the chart using the configuration items and data just specified.
+                  myGenerada.setOption(option);
+              }
         }
         function calcular(){
             totalWH = 0;
@@ -473,8 +512,7 @@
                 let sumInvert = parseFloat(cantidad)*parseFloat(vatios)*prendido;
                 inversor.push(sumInvert);
             }
-            
-            //console.log(totalWH);
+
             document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
             loadChart(meArray);
             
@@ -484,10 +522,10 @@
         }
         function loadChart(tCargas){
             // Initialize the echarts instance based on the prepared dom
-            var myChart = echarts.init(document.getElementById('main'));
-            myChart.resize();
+            var myLoads = echarts.init(document.getElementById('main'));
+            myLoads.resize();
             window.addEventListener('resize', function() {
-                myChart.resize();
+                myLoads.resize();
             });
       
             // Specify the configuration items and data for the chart
@@ -516,7 +554,7 @@
             };
       
             // Display the chart using the configuration items and data just specified.
-            myChart.setOption(option);
+            myLoads.setOption(option);
         }
         function limpiar(){
             totalWH = 0;
