@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar Personal APP </title>
 
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js"></script>
 
     <!--Charts-->
-    <script src="echarts.js"></script>
+    <script src="js/echarts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
@@ -17,8 +17,8 @@
     <fieldset>
     <div id="intro">
         <!--<legend id="titulo">Welcome</legend>-->
-        <img src="solarApp.jpeg" alt="Loading ...">
-        <img src="home.jpg" alt="Loading ...">
+        <img src="img/solarApp.jpeg" alt="Loading ...">
+        <img src="img/home.jpg" alt="Loading ...">
         <button class="menu" id="" onclick="clima()">START</button>
     </div>
 
@@ -98,8 +98,6 @@
             </tr>
         </tbody>
     </table>
-    <!--<img src="home.jpg" alt="Loading ...">-->
-    <!--<canvas id="solRadar"></canvas>-->
     <div id="solRadar"></div>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h4>Powered by <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> and <a href="https://echarts.apache.org/en/index.html" target="_blank">Apache ECharts</a></h4>
@@ -199,7 +197,6 @@
         
         <div id="paneles">
             <label id="instalado" for="instalado">Instaled Photovoltaic System (W): </label>
-            <!--<input name="instalado" id="instalados" type="number" list="pvWatts">-->
             <select id="pvWatts" name="instalado">
                 <option value="50">50W</option>
                 <option value="100">100W</option>
@@ -229,8 +226,6 @@
                 <option value="">Other</option>
             </select>
         </div>
-        <!--<img src="home.jpg" alt="Loading ...">-->
-        <!--<canvas id="solRadar"></canvas>-->
     </div>
 
     <div id="resume">
@@ -244,7 +239,6 @@
         <div id="inversor"></div>
         <div id="bateria"></div>
         <legend id="incubadora">INCUBATOR STATUS</legend>
-        <!--<img src="incu.png" alt="Loading ...">-->
     </div>
 
     <div class="nav" id="nav">
