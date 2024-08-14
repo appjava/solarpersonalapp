@@ -18,22 +18,76 @@
 
         let horaGenerada = [];
 
+        let newDev = [];
+
+        //defaultDevices
+          let defaultDevices = [
+            {dev:0, cant:0, watts:0, hours:0},
+            {dev:1, cant:1, watts:25, hours:6},
+            {dev:2, cant:2, watts:5, hours:6},
+            {dev:3, cant:1, watts:5, hours:6},
+            {dev:4, cant:1, watts:5, hours:6},
+            {dev:5, cant:3, watts:10, hours:6},
+            {dev:6, cant:0, watts:0, hours:0},
+            {dev:7, cant:0, watts:0, hours:0},
+            {dev:8, cant:1, watts:5, hours:6},
+            {dev:9, cant:0, watts:0, hours:0},
+          ]
+
+        if(!localStorage.getItem('Devices')){
+          localStorage.setItem('Devices', JSON.stringify(defaultDevices));
+       }
+
+       let devices = JSON.parse(localStorage.getItem('Devices'));
+       console.log(devices);
+       //-------------------
+
+       //defaultCoordenates
+       let defaultCoord = [
+        {lat:3.559809, lon:-76.575405}
+      ]
+      //------------------------
+
+      //defaultPowerPanels
+      let defaultPowerP = 150;
+
+        if(!localStorage.getItem('powerPanels')){
+          localStorage.setItem('powerPanels', JSON.stringify(defaultPowerP));
+      }
+
+      let powerPanels = JSON.parse(localStorage.getItem('powerPanels'));
+      console.log(powerPanels);
+      //------------------------
+      //defaultTypePanels
+      let defaultTypeP = "Poli";
+
+        if(!localStorage.getItem('typePanels')){
+          localStorage.setItem('typePanels', JSON.stringify(defaultTypeP));
+      }
+
+      let typePanels = JSON.parse(localStorage.getItem('typePanels'));
+      console.log(typePanels);
+      //------------------------
+
+
+
         function readDay(){
             let lat = document.getElementById("lat").value;
             let lon = document.getElementById("lon").value;
 
             if (!lat || !lon){
-                    //console.log("Por Defecto: ");
                     lat = 3.559809;
                     lon = -76.575405;
-                    //console.log(lat);
-                    //console.log(lon);
                 }
                 else {
-                    //console.log("Input: ");
-                    //console.log(lat);
-                    //console.log(lon);
+                    
                 }
+
+            let newCoord = [];
+            newCoord = [{lat:lat, lon:lon}];
+            localStorage.setItem('Coordenates', JSON.stringify(newCoord));
+            //let coordenates = JSON.parse(localStorage.getItem('Coordenates'));
+
             const urlINI = 'https://api.open-meteo.com/v1/forecast?';
             const urlA = 'latitude='+lat;
             const urlB = 'longitude='+lon;
@@ -228,6 +282,16 @@
             document.getElementById("cargas").style.display="unset";
             document.getElementById("potencial").style.display="none";
             document.getElementById("sumario").style.display="unset";
+
+            if(!localStorage.getItem('Coordenates')){
+              document.getElementById("lat").value = "";
+              document.getElementById("lon").value = "";
+            }else{
+              let coordenates = JSON.parse(localStorage.getItem('Coordenates'));
+              document.getElementById("lat").value = coordenates[0].lat;
+              document.getElementById("lon").value = coordenates[0].lon;
+            }
+
             readDay();
         }
         function cargas(){
@@ -235,10 +299,18 @@
             document.getElementById("clima").style.display="none";
             document.getElementById("resume").style.display="none";
             document.getElementById("carga").style.display="unset";
-
             document.getElementById("potencial").style.display="unset";
             document.getElementById("cargas").style.display="none";
             document.getElementById("sumario").style.display="unset";
+            
+            let i = 0;
+            devices.forEach((element) => {   
+                document.getElementById("cant"+i).value = element.cant;
+                document.getElementById("watt"+i).value = element.watts;
+                document.getElementById("hour"+i).value = element.hours;
+                i++;
+            });
+            
             calcular();
         }
         function resumen(){
@@ -505,16 +577,19 @@
             let meArray = [];
             let inversor = [];
             let prendido = 0;
-
+            newDev = [];
+            
             for (let i = 0; i < 10; i++){
                 var cantidad = document.getElementById("cant"+i).value;
-                if(!cantidad){
+                if(!cantidad || cantidad == 0){
                     cantidad = 0;
                 }
+                
                 var vatios = document.getElementById("watt"+i).value;
-                if(!vatios){
+                if(!vatios || vatios == 0){
                     vatios = 0;
                 }
+                
                 var horas = document.getElementById("hour"+i).value;
                 if(!horas || horas == 0){
                     horas = 0;
@@ -522,6 +597,9 @@
                 }else{
                     prendido = 1;
                 }
+
+                let tempDev = {dev:i, cant:parseInt(cantidad), watts:parseInt(vatios), hours:parseInt(horas)};
+                newDev.push(tempDev);
                 let wattHora = parseFloat(cantidad)*parseFloat(vatios)*parseFloat(horas);
                 document.getElementById("wh"+i).innerHTML = wattHora; 
                 totalWH = totalWH + wattHora;
@@ -530,6 +608,11 @@
                 let sumInvert = parseFloat(cantidad)*parseFloat(vatios)*prendido;
                 inversor.push(sumInvert);
             }
+            
+            //statusDevice = newDev;
+            localStorage.setItem('Devices', JSON.stringify(newDev));
+            devices = JSON.parse(localStorage.getItem('Devices'));
+            console.log(devices);
 
             document.getElementById('calculo').innerHTML = "Total Watts: "+totalWH+" W-H";
             loadChart(meArray);
