@@ -323,6 +323,7 @@
             document.getElementById("cargas").style.display="unset";
             document.getElementById("sumario").style.display="none";
             
+            /*
             fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
             .then(response => response.json())
             .then(data => {
@@ -339,6 +340,7 @@
                 <h5>${incuTime}</h5>
                 `;
             });
+            */
 
                 potInstalada = document.getElementById("pvWatts").value;
                 if(!potInstalada){
@@ -348,36 +350,41 @@
                 let areaInstalada = 0.28 * potInstalada/50;
 
                 var typePanel = document.getElementById("tipoPanel").value;
-
+                let tPanel = "";
                 if(typePanel==="policristalino"){
                     var effiPanel = 0.20;
+                    tPanel = "Polycrystalline";
                 }
                 else if(typePanel==="monocristalino"){
                     var effiPanel = 0.25;
+                    tPanel = "Monocrystalline";
                 }
                 else{
                     var effiPanel = 0.15;
+                    tPanel = "Installed";
                 }
                 
                 horaGenerada = radiacionCorta.map( number => parseInt(number * areaInstalada * effiPanel));
                 
                 totalW = totalShort;
-                let eGenerada = parseInt(areaInstalada * effiPanel * totalW);
+                let ePotencial = parseInt(totalW)*effiPanel;
+                let eGenerada = parseInt(areaInstalada * ePotencial);
+                
 
                 document.getElementById("balance").innerHTML = `
-                  <div id="generado">
+                  <!--<div id="generado">
                       <h3>Potential</h3>
-                      <h1>${parseInt(totalW)}</h1>
+                      <h1>${ePotencial}</h1>
+                      <h3>Wh/m2</h3>    
+                  </div>-->
+                  <div id="generado">
+                      <h3>Generated</h3>
+                      <h1>${parseInt(eGenerada)}</h1>
                       <h3>Wh</h3>    
                   </div>
                   <div id="usado">
                       <h3>Used</h3>
                       <h1>${parseInt(totalWH)}</h1>
-                      <h3>Wh</h3>    
-                  </div>
-                  <div id="generado">
-                      <h3>Generated</h3>
-                      <h1>${parseInt(eGenerada)}</h1>
                       <h3>Wh</h3>    
                   </div>
                 `;
@@ -393,7 +400,7 @@
                 let searchUrlPanel2 = "https://www.ebay.com/sch/"+searchPanel;
 
                 document.getElementById("panelesInstalados").innerHTML = `
-                <h3>Installed Photovolltaic System</h3>
+                <h3>${tPanel} Photovolltaic System</h3>
                 <a href="${searchUrlPanel1}" target="_blank"><h2>${nominalPanel}</h2></a>
                 <a href="${searchUrlPanel2}" target="_blank"><h3>Watts</h3></a>
                 `;
@@ -429,6 +436,17 @@
 
                 chartResume();
                 function chartResume(){
+                    let eMax = 0;
+                    /*if(ePotencial > eGenerada){
+                      eMax = ePotencial;
+                    }*/
+                    if(eGenerada > totalWH || eGenerada == totalWH){
+                      eMax = eGenerada;
+                    }
+                    if(totalWH > eGenerada || totalWH == eGenerada){ 
+                      eMax = totalWH;
+                    }
+                    
                     var myBalance = echarts.init(document.getElementById('gauge'));
                     myBalance.resize();
                     window.addEventListener('resize', function() {
@@ -444,17 +462,29 @@
                           radius: [30, '75%']
                         },
                         angleAxis: {
-                          max: totalShort*1.15,
+                          max: eMax*1.15,
                           startAngle: 90
                         },
                         radiusAxis: {
                           type: 'category',
-                          data: ['Used', 'Generated', 'Potential']
+                          data: ['Used', 'Generated']
+                          //data: ['Used', 'Generated', 'Potential']
                         },
                         tooltip: {},
                         series: {
                           type: 'bar',
-                          data: [totalWH, eGenerada, totalShort],
+                          data: [
+                            {
+                                value: totalWH,
+                                itemStyle: {color: 'red'},
+                            },
+                            {
+                                value: eGenerada,
+                                itemStyle: {color: 'green'},
+                            }
+                        ],
+                          //data: [totalWH, eGenerada],
+                          //data: [totalWH, eGenerada, ePotencial],
                           
                           coordinateSystem: 'polar',
                           label: {
@@ -538,7 +568,7 @@
                       name: 'Hourly Watts Generated',
                       type: 'bar',
                       smooth: true,
-                      color: 'green',
+                      color: '#e6a903',
                       emphasis: {
                         focus: 'series'
                       },
@@ -548,7 +578,7 @@
                       name: 'Avg Generated Wh',
                       type: 'line',
                       smooth: true,
-                      color: '#e6a903',
+                      color: 'green',
                       emphasis: {
                         focus: 'series'
                       },
