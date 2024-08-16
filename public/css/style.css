@@ -99,7 +99,7 @@
         }
         
         #solRadar{
-            max-width: 100%;
+            width: 95%;
             height: 240px;
             border: 1px solid white;
             background-color: white;
@@ -189,7 +189,7 @@
         }
         #solRadar, #horaGenerada{
             width: 95%;
-            max-width: 700px;
+            max-width: 720px;
             height: 350px;
             margin: 15px auto 0px auto;
             background-color: white;
