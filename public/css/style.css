@@ -13,7 +13,8 @@
             background-color: red;
             color: white;
             font-size: 12px;
-
+            height: 100vh;
+            place-content: center;
         }
         p{
             text-align: left;
