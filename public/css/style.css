@@ -16,6 +16,15 @@
             height: 100vh;
             place-content: center;
         }
+        fieldset{
+            width: 90%;
+            min-width: 240px;
+            margin: 12px auto 12px auto;
+            border-radius: 12px 12px 12px 12px;
+            padding: 3px 9px 12px 9px;
+            height: auto;
+            text-align: center;
+        }
         p{
             text-align: left;
             margin-left: 12px;
@@ -23,7 +32,7 @@
         table{
             background-color: rgb(230, 169, 3);
             margin: 6px auto 0px auto;
-            width: 100%;
+            width: 95%;
             border-radius: 12px 12px 0px 0px;
             padding: 6px 12px 12px 12px;
             font-size: small;
@@ -49,15 +58,7 @@
             padding-right: 6px;
         }
         
-        fieldset{
-            width: 90%;
-            min-width: 240px;
-            margin: 12px auto 0px auto;
-            border-radius: 12px 12px 12px 12px;
-            padding: 3px 9px 12px 9px;
-            height: auto;
-            text-align: center;
-        }
+        
         legend{
             font-weight: bold;
             padding-top: 9px;
@@ -66,7 +67,7 @@
             font-size: 15px;
         }
         button{
-            width: 100%;
+            width: 95%;
             font-weight: bold;
             font-size: 15px;
             height: 45px;
@@ -78,6 +79,7 @@
             color: white;
             cursor: pointer;
         }
+        
         img{
             border-radius: 12px;
             width: 90%;
@@ -117,7 +119,16 @@
             padding-right: 0px;
         }
 
-        /*Pantallas*/
+        #bienvenida{
+            margin: 45px auto 15px auto;
+            width: 90%;
+        }
+        #bienvenida p {
+            font-size: medium;
+            text-align: justify;
+            padding-right: 15px;
+        }
+        /*Pantallas*/        
         #clima{
             display: none;
         }
@@ -137,6 +148,9 @@
         }
         #cargas{
             display: none;
+        }
+        #enter{
+            width: 90%;
         }
         
         /*Menu*/
@@ -168,13 +182,14 @@
             font-size: 24px;
         }
         #main{
-            width: 100%;
+            width: 95%;
             height: 350px;
             margin: 0 auto;
             background-color: white;
         }
         #solRadar, #horaGenerada{
-            width: 99%;
+            width: 95%;
+            max-width: 700px;
             height: 350px;
             margin: 15px auto 0px auto;
             background-color: white;
@@ -216,12 +231,14 @@
         }
         #gauge{
             min-width: 200px;
+            max-width: 650px;
             width: 95%;
             height: 300px;
             margin: 0 auto;
             background-color: white;
             border-radius: 30px;
             padding: 0px 6px;
+
         }
         select{
             text-align: center;

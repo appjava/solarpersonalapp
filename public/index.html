@@ -19,11 +19,15 @@
         <!--<legend id="titulo">Welcome</legend>-->
         <img src="img/solarApp.jpeg" alt="Loading ...">
         <img src="img/home.jpg" alt="Loading ...">
-        <button class="menu" id="" onclick="clima()">START</button>
+        <div id="bienvenida">
+            <p>Welcome to our solar energy app!</p><br>
+            <p>Here you can discover the solar potential anywhere, calculate your electrical loads, design an energy system for your home and maintain a perfect balance between what you produce and consume every day!</p>
+        </div>
+        <button class="menu" id="enter" onclick="clima()">Let's Go!</button>
     </div>
 
     <div id="clima">   
-    <legend id="dia">EchoWeather</legend>
+    <legend id="dia">Solar Potential</legend>
     <p><label>Latitude:</label><input id="lat" type="number" placeholder="3.375 by default - Enter yours"></p>
     <p><label>Longitude:</label><input id="lon" type="number"placeholder="-76.75 by default - Enter yours"></p>
     <a id=local href="https://satellite-map.gosur.com" target="_blank"><button class="local">Map</button></a>
@@ -244,7 +248,7 @@
     <div class="nav" id="nav">
         <a href="#dia"><button class="menu" id="potencial" onclick="clima()">Potential</button></a>
         <a href="#legenda"><button class="menu" id="cargas" onclick="cargas()">Loads</button></a>
-        <a href="#resumen"><button class="menu" id="sumario" onclick="resumen()">Summary</button></a>
+        <a href="#resumen"><button class="menu" id="sumario" onclick="resumen()">Balance</button></a>
     </div>
     <br>
     <h4>Powered by <a href="https://echo-group.web.app" target="_blank">EchoGroup</a></h4>

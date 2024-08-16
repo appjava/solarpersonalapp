@@ -400,7 +400,7 @@
                 let searchUrlPanel2 = "https://www.ebay.com/sch/"+searchPanel;
 
                 document.getElementById("panelesInstalados").innerHTML = `
-                <h3>${tPanel} Photovolltaic System</h3>
+                <h3>${tPanel} Photovoltaic System</h3>
                 <a href="${searchUrlPanel1}" target="_blank"><h2>${nominalPanel}</h2></a>
                 <a href="${searchUrlPanel2}" target="_blank"><h3>Watts</h3></a>
                 `;
