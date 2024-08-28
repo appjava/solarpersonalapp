@@ -15,6 +15,7 @@
             font-size: 12px;
             height: 100vh;
             place-content: center;
+            
         }
         fieldset{
             width: 90%;
@@ -24,6 +25,7 @@
             padding: 3px 9px 12px 9px;
             height: auto;
             text-align: center;
+            position: relative;
         }
         p{
             text-align: left;
@@ -110,13 +112,22 @@
             height: 40px;
             font-size: x-small;
             position: absolute;
-            top: 33px;
-            right: 5%;
+            top: 9px;
+            right: 9px;
             background: white;
             color: rgb(230, 169, 3);
-            border-radius: 20px;
-            padding-left: 0px;
-            padding-right: 0px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            
+        }
+        .map{
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            padding: 9px;
+            margin: 0;
+            margin-top: 1px;
         }
 
         #bienvenida{
@@ -289,8 +300,5 @@
             fieldset{
                 max-width: 600px;
             }
-            .local{
-            top: 33px;
-            right: 30%;
-            }
+            
         }
