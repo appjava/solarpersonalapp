@@ -1,0 +1,308 @@
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+            color: gray;
+        }
+        body{
+            text-align: center;
+            width: 100%;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            height: 100vh;
+            place-content: center;
+            
+        }
+        fieldset{
+            width: 90%;
+            min-width: 240px;
+            margin: 12px auto 12px auto;
+            border-radius: 12px 12px 12px 12px;
+            padding: 3px 9px 12px 9px;
+            height: auto;
+            text-align: center;
+            position: relative;
+        }
+        p{
+            text-align: left;
+            margin-left: 12px;
+        }
+        table{
+            background-color: rgb(230, 169, 3);
+            margin: 6px auto 0px auto;
+            width: 95%;
+            border-radius: 12px 12px 0px 0px;
+            padding: 6px 12px 12px 12px;
+            font-size: small;
+        }
+        thead {
+            background-color: rgb(230, 169, 3);
+            border-radius: 12px 12px 0px 0px;
+            color: white;
+            font-size: x-small;
+            text-transform: uppercase;
+        }
+        tbody{
+            background-color: white;
+            color: black;
+        }
+        td{
+            padding: 3px;
+            height: 24px;
+        }
+        th{
+            min-width: 33px;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+        
+        
+        legend{
+            font-weight: bold;
+            padding-top: 9px;
+            margin: 0 auto;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        button{
+            width: 95%;
+            font-weight: bold;
+            font-size: 15px;
+            height: 45px;
+            border-radius: 0px 0px 12px 12px;
+            margin-bottom: 12px;
+            margin-top: 0px;
+            text-transform: uppercase;
+            background-color: #e6a903;
+            color: white;
+            cursor: pointer;
+        }
+        
+        img{
+            border-radius: 12px;
+            width: 90%;
+            margin-top: 12px;
+        }
+        input{
+            text-align: center;
+            width: 60%;
+            height: 75%;
+            background-color: white;
+            border-radius: 6px;
+            margin: 3px;
+            font-size: small;
+        }
+        label{
+            font-weight: bold;
+        }
+        
+        #solRadar{
+            width: 95%;
+            height: 240px;
+            border: 1px solid white;
+            background-color: white;
+            font-size: 12px;
+        }
+        .local{
+            width: 40px;
+            height: 40px;
+            font-size: x-small;
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            background: white;
+            color: rgb(230, 169, 3);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            
+        }
+        .map{
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            padding: 9px;
+            inset: 0;
+            margin: auto;
+            
+        }
+        .local:hover{
+            background-color: #e6a903;
+        }
+
+        #bienvenida{
+            margin: 45px auto 15px auto;
+            width: 90%;
+        }
+        #bienvenida p {
+            font-size: medium;
+            text-align: justify;
+            padding-right: 15px;
+        }
+        /*Pantallas*/        
+        #clima{
+            display: none;
+        }
+        #carga{
+            display: none;
+        }
+        #resume{
+            display: none;
+        }
+
+        /*Botones*/
+        #potencial{
+            display: none;
+        }
+        #sumario{
+            display: none;
+        }
+        #cargas{
+            display: none;
+        }
+        #enter{
+            width: 90%;
+        }
+        
+        /*Menu*/
+        .nav{
+            display: flex;
+            border: none;
+        }
+        .menu{
+            min-width: 120px;
+            width: 30%;
+            height: 60px;
+            margin: 30px auto;
+            border-radius: 12px;
+            font-size: small;
+        }
+
+        td>input{
+            margin: 0;
+            width: 90%;
+            font-size: 12px
+        }
+        #instalado, #tipo{
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        #instalados{
+            height: 45px;
+            width: 120px;
+            font-size: 24px;
+        }
+        #main{
+            width: 95%;
+            height: 350px;
+            margin: 0 auto;
+            background-color: white;
+        }
+        #solRadar, #horaGenerada{
+            width: 95%;
+            max-width: 720px;
+            height: 350px;
+            margin: 15px auto 0px auto;
+            background-color: white;
+        }
+        #totalShort{
+            background-color: white;
+            color: #e6a903;
+            font-weight: bold;
+        }
+        #totalDiffuse{
+            background-color: white;
+            color: green;
+            font-weight: bold;
+        }
+        #totalDirect{
+            background-color: white;
+            color: hsl(240, 100%, 50%);
+            font-weight: bold;
+        }
+        
+        #balance{
+            width: 95%;
+            margin: 12px auto 12px auto;
+            display: flex;
+            justify-content: space-around;
+            gap: 3px;
+        }
+        #generado, #usado{
+            min-width: 70px;
+            width: 25%;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+            height: 70px;
+            justify-content: space-between;
+        }
+        #gauge{
+            min-width: 200px;
+            max-width: 650px;
+            width: 95%;
+            height: 300px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 30px;
+            padding: 0px 6px;
+
+        }
+        select{
+            text-align: center;
+            width: 80%;
+            margin: 0 auto;
+            height: 30px;
+        }
+        #paneles{
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #panelesInstalados, #kilosMes, #cargaSimultanea{
+            background-color: white;
+            color: black;
+            max-width: 450px;
+            width: 80%;
+            height: 60px;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #inversor{
+            width: 90%;
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+           
+        }
+        #inverter{
+            min-width: 120px;
+            width: 50%;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+            height: 70px;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 900px) {
+            fieldset{
+                max-width: 600px;
+            }
+            
+        }
