@@ -1,6 +1,6 @@
 {
   "hosting": {
-	"site": "pvenergy",
+	"site": "solarpersonal",
     "public": "public",
     "ignore": [
       "firebase.json",
