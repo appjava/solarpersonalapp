@@ -312,7 +312,7 @@
             });
             
             calcular();
-        }
+          }
         function resumen(){
             document.getElementById("clima").style.display="none";
             document.getElementById("carga").style.display="none";
@@ -370,13 +370,14 @@
                 let ePotencial = parseInt(totalW)*effiPanel;
                 let eGenerada = parseInt(areaInstalada * ePotencial);
                 
+                let residual = eGenerada - totalWH;
+                if (residual < 0){
+                  residual = 0;
+                }
+                let storage = residual;
 
                 document.getElementById("balance").innerHTML = `
-                  <!--<div id="generado">
-                      <h3>Potential</h3>
-                      <h1>${ePotencial}</h1>
-                      <h3>Wh/m2</h3>    
-                  </div>-->
+                  
                   <div id="generado">
                       <h3>Generated</h3>
                       <h1>${parseInt(eGenerada)}</h1>
@@ -385,6 +386,11 @@
                   <div id="usado">
                       <h3>Used</h3>
                       <h1>${parseInt(totalWH)}</h1>
+                      <h3>Wh</h3>    
+                  </div>
+                  <div id="generado">
+                      <h3>Storage</h3>
+                      <h1>${parseInt(storage)}</h1>
                       <h3>Wh</h3>    
                   </div>
                 `;
@@ -415,7 +421,7 @@
                 let searchUrlInverter1 = "https://www.amazon.com/s?k="+searchInverter;
                 let searchUrlInverter2 = "https://www.ebay.com/sch/"+searchInverter;
 
-                let nominalBattery = parseInt((eGenerada/13)*1.5);
+                let nominalBattery = parseInt((storage/13)*2);
                 let searchBattery = "battery+12+v+" + nominalBattery + "+ah";
                 let searchUrlBattery1 = "https://www.amazon.com/s?k="+searchBattery;
                 let searchUrlBattery2 = "https://www.ebay.com/sch/"+searchBattery;
