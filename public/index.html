@@ -11,6 +11,14 @@
     <!--Charts-->
     <script src="js/echarts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--Maps-->
+    <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <script src="js/mapkick.js"></script>
+    <script>
+        Mapkick.options = {style: "https://demotiles.maplibre.org/style.json"}
+    </script>
     
 </head>
 <body>
@@ -105,7 +113,10 @@
     <div id="solRadar"></div>
     <button id="boton" onclick="clearDay()">Press to Scan Present Day</button>
     <h4>Thanks to <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> and <a href="https://echarts.apache.org/en/index.html" target="_blank">Apache ECharts</a></h4>
-    </div>
+    
+    <!--<div id="map" style="height: 400px;"></div>
+
+    </div>-->
 
     <div id="carga">   
         <legend id="legenda">Daily Loads</legend>
@@ -254,5 +265,8 @@
     <h4>Powered by <a href="https://echo-group.web.app" target="_blank">EchoGroup</a></h4>
     </fieldset>
     <script src="js/app.js"></script>
+    <!--<script>
+        new Mapkick.Map("map", [{latitude: 3.559809, longitude: -76.575405}])
+    </script>-->
 </body>
 </html>
