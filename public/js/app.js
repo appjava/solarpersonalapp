@@ -544,7 +544,7 @@
                     }
                   },
                   legend: {
-                    data: ['Hourly Watts Generated', 'Avg Generated Wh', 'Avg Used Wh']
+                    data: ['Hourly Watts Generated', 'Avg Generated Wh', 'Avg Used Wh', 'Load W']
                   },
                   toolbox: {
                     feature: {
@@ -599,6 +599,16 @@
                         focus: 'series'
                       },
                       data: mediaUsada
+                    },
+                    {
+                      name: 'Load W',
+                      type: 'line',
+                      smooth: true,
+                      color: 'gray',
+                      emphasis: {
+                        focus: 'series'
+                      },
+                      data: loadSimultanea
                     }
                   ]
                 };
