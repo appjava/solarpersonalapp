@@ -281,7 +281,7 @@
 
             document.getElementById("cargas").style.display="unset";
             document.getElementById("potencial").style.display="none";
-            document.getElementById("sumario").style.display="unset";
+            document.getElementById("sumario").style.display="none";
 
             if(!localStorage.getItem('Coordenates')){
               document.getElementById("lat").value = "";
@@ -319,7 +319,7 @@
             document.getElementById("intro").style.display="none";
             document.getElementById("resume").style.display="unset";
 
-            document.getElementById("potencial").style.display="unset";
+            document.getElementById("potencial").style.display="none";
             document.getElementById("cargas").style.display="unset";
             document.getElementById("sumario").style.display="none";
             
