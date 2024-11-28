@@ -1,6 +1,6 @@
 # Web App to Size Solar System.
 
-![alt text](solarApp.png "SolarPersonalApp")
+![alt text](public/img/solarApp.png "SolarPersonalApp")
 
 ---
 
