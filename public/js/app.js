@@ -23,8 +23,8 @@
         //defaultDevices
           let defaultDevices = [
             {dev:0, cant:0, watts:0, hours:0},
-            {dev:1, cant:1, watts:25, hours:6},
-            {dev:2, cant:2, watts:5, hours:6},
+            {dev:1, cant:1, watts:240, hours:6},
+            {dev:2, cant:1, watts:5, hours:6},
             {dev:3, cant:1, watts:5, hours:6},
             {dev:4, cant:1, watts:5, hours:6},
             {dev:5, cant:3, watts:10, hours:6},
@@ -299,6 +299,7 @@
             document.getElementById("clima").style.display="none";
             document.getElementById("resume").style.display="none";
             document.getElementById("carga").style.display="unset";
+            
             document.getElementById("potencial").style.display="unset";
             document.getElementById("cargas").style.display="none";
             document.getElementById("sumario").style.display="unset";
@@ -322,25 +323,7 @@
             document.getElementById("potencial").style.display="none";
             document.getElementById("cargas").style.display="unset";
             document.getElementById("sumario").style.display="none";
-            
-            /*
-            fetch('https://api.thingspeak.com/channels/953284/feeds.json?results=2')
-            .then(response => response.json())
-            .then(data => {
-                let incuTemperatura = data.feeds[1].field1;
-                let incuHumedad = data.feeds[1].field2;
-                let incuTime = data.feeds[1].created_at;
-
-                let incuTemp = parseFloat(incuTemperatura).toFixed(2);
-                let incuHum = parseFloat(incuHumedad).toFixed(2);
-
-                document.getElementById('incubadora').innerHTML = `
-                <h4>Incubator</h4>
-                <h4>Temperature: ${incuTemp} °C | ${incuHum} % : Humidity</h4>
-                <h5>${incuTime}</h5>
-                `;
-            });
-            */
+          
 
                 potInstalada = document.getElementById("pvWatts").value;
                 if(!potInstalada){
