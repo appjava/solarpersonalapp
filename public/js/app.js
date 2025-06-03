@@ -23,11 +23,11 @@
         //defaultDevices
           let defaultDevices = [
             {dev:0, cant:0, watts:0, hours:0},
-            {dev:1, cant:1, watts:240, hours:6},
+            {dev:1, cant:1, watts:25, hours:6},
             {dev:2, cant:1, watts:5, hours:6},
             {dev:3, cant:1, watts:5, hours:6},
             {dev:4, cant:1, watts:5, hours:6},
-            {dev:5, cant:3, watts:10, hours:6},
+            {dev:5, cant:2, watts:10, hours:6},
             {dev:6, cant:0, watts:0, hours:0},
             {dev:7, cant:0, watts:0, hours:0},
             {dev:8, cant:1, watts:5, hours:6},
@@ -44,7 +44,7 @@
 
        //defaultCoordenates
        let defaultCoord = [
-        {lat:3.559809, lon:-76.575405}
+        {lat:3.5599, lon:-76.5755}
       ]
       //------------------------
 
@@ -76,8 +76,8 @@
             let lon = document.getElementById("lon").value;
 
             if (!lat || !lon){
-                    lat = 3.559809;
-                    lon = -76.575405;
+                    lat = 3.5599;
+                    lon = -76.5755;
                 }
                 else {
                     
@@ -330,20 +330,20 @@
                     potInstalada = 0;
                 }
 
-                let areaInstalada = 0.28 * potInstalada/50;
+                let areaInstalada = 0.347 * potInstalada/50;
 
                 var typePanel = document.getElementById("tipoPanel").value;
                 let tPanel = "";
                 if(typePanel==="policristalino"){
-                    var effiPanel = 0.20;
+                    var effiPanel = 0.15;
                     tPanel = "Polycrystalline";
                 }
                 else if(typePanel==="monocristalino"){
-                    var effiPanel = 0.25;
+                    var effiPanel = 0.21;
                     tPanel = "Monocrystalline";
                 }
                 else{
-                    var effiPanel = 0.15;
+                    var effiPanel = 0.12;
                     tPanel = "Installed";
                 }
                 
@@ -495,7 +495,7 @@
 
                 let mediaGenerada = [];
                 for (let i = 0; i < tiempo.length; i++){
-                  mediaGenerada.push(parseInt(eGenerada/tiempo.length));
+                  mediaGenerada.push(parseInt(eGenerada/9));
                 }
 
                 let mediaUsada = [];
@@ -527,7 +527,7 @@
                     }
                   },
                   legend: {
-                    data: ['Hourly Watts Generated', 'Avg Generated Wh', 'Avg Used Wh', 'Load W']
+                    data: ['Hourly Watts Generated', 'Avg Generated Wh',  'Load W'] //'Avg Used Wh'
                   },
                   toolbox: {
                     feature: {
@@ -573,21 +573,21 @@
                       },
                       data: mediaGenerada
                     },
-                    {
+                    /*{
                       name: 'Avg Used Wh',
                       type: 'line',
                       smooth: true,
-                      color: 'red',
+                      color: 'gray',
                       emphasis: {
                         focus: 'series'
                       },
                       data: mediaUsada
-                    },
+                    },*/
                     {
                       name: 'Load W',
                       type: 'line',
                       smooth: true,
-                      color: 'gray',
+                      color: 'red',
                       emphasis: {
                         focus: 'series'
                       },
