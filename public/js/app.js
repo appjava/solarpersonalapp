@@ -44,8 +44,12 @@
 
        //defaultCoordenates
        let defaultCoord = [
-        {lat:3.5599, lon:-76.5755}
+        {
+          lat:3.5599, 
+          lon:-76.5755}
       ]
+      /*console.log(defaultCoord[0].lat);
+      console.log(defaultCoord[0].lon);*/
       //------------------------
 
       //defaultPowerPanels
@@ -76,11 +80,11 @@
             let lon = document.getElementById("lon").value;
 
             if (!lat || !lon){
-                    lat = 3.5599;
-                    lon = -76.5755;
+                    lat = defaultCoord[0].lat;
+                    lon = defaultCoord[0].lon;
                 }
                 else {
-                    
+                    console.log("Ok");
                 }
 
             let newCoord = [];
@@ -339,11 +343,11 @@
                     tPanel = "Polycrystalline";
                 }
                 else if(typePanel==="monocristalino"){
-                    var effiPanel = 0.21;
+                    effiPanel = 0.21;
                     tPanel = "Monocrystalline";
                 }
                 else{
-                    var effiPanel = 0.12;
+                    effiPanel = 0.12;
                     tPanel = "Installed";
                 }
                 
@@ -441,7 +445,7 @@
                     window.addEventListener('resize', function() {
                         myBalance.resize();
                     });
-                      option = {
+                      let option = {
                         title: [
                           {
                             text: ''
@@ -688,7 +692,7 @@
         }
         function limpiar(){
             totalWH = 0;
-            meArray = 0;
+            let meArray = 0;
             loadChart(meArray);
 
             for (let i = 0; i < 10; i++){
